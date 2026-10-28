@@ -14,3 +14,7 @@ desktop.ini
 # editors
 .vscode/
 .positron/
+
+# vim swap files
+*.swp
+*.swo

@@ -2,7 +2,7 @@
 
 In this project you'll use **git** and **GitHub** the way data scientists actually work together. You'll:
 
-1. install git on your laptop
+1. install git on your laptop 
 2. clone a shared repository of Shiny apps
 3. modify the starter apps into apps of your own and push them
 4. pull down your classmates' apps, improve one of them, and push a **pair-modified** version
@@ -95,35 +95,49 @@ Check your settings:
 git config --global --list
 ```
 
+### 0.4 Use Git Bash inside Positron (recommended)
+
+You don't have to switch back and forth between Positron and a separate Git Bash window. Make Git Bash Positron's default terminal:
+
+1. In Positron, open the Command Palette with **Ctrl + Shift + P**.
+2. Type **Terminal: Select Default Profile** and press Enter.
+3. Choose **Git Bash**.
+4. Open a new terminal (**Terminal → New Terminal**, or **Ctrl + `**). The prompt should end in `$`, not `PS C:\...>`.
+
+From now on, whenever this README says "in Git Bash", you can just use Positron's terminal.
+
+> **Why Git Bash and not PowerShell?** `git` works in either. But Git Bash gives you the same commands (`ls`, `cp`, `mkdir`, ...) used on Mac/Linux, in this README, and in almost every git tutorial online. Some commands behave differently in PowerShell; for example, `echo "..." > file` writes a file that shows up garbled on GitHub.
+
 ---
 
 ## Part 1 — Clone the repo (in class)
 
-1. On the repo's GitHub page, click the green **Code** button and copy the **HTTPS** URL. It looks like `https://github.com/<owner>/shiny-collab.git`.
-2. In Git Bash, go to wherever you keep your DAT 309 work and clone:
+1. On the repo's GitHub page, click the green **Code** button and copy the **HTTPS** URL. It looks like `https://github.com/joshtanga/shiny-collab.git`.
+2. In Git Bash (or Positron's terminal, see 0.4), go to wherever you keep your DAT 309 work and clone:
 
    ```bash
    cd ~/Documents            # or wherever you keep class files
-   git clone https://github.com/<owner>/shiny-collab.git
+   git clone https://github.com/joshtanga/shiny-collab.git
    cd shiny-collab
    ls
    ```
 
 3. Open the `shiny-collab` folder in **Positron** (File → Open Folder).
-4. Make your own folder and a placeholder file. Git doesn't track empty folders, so you need the file.
+4. Find your folder. I've already created a folder for each of you at `students/<your-username>/` (e.g. `students/jmorton/`), with a placeholder `README.md` inside. **Don't create a new folder, and don't rename yours.**
 
    ```bash
-   mkdir students/<your-username>
-   echo "# <Your Name>" > students/<your-username>/README.md
+   ls students                       # you should see your username
+   ls students/<your-username>       # you should see README.md
    ```
 
-5. Do your first commit and push:
+5. Do your first commit and push. In Positron, open `students/<your-username>/README.md` and replace the placeholder with your name and one sentence about yourself. Save it, then:
 
    ```bash
    git status                         # see what changed (red = not staged)
-   git add students/<your-username>   # stage your folder
+   git add students/<your-username>   # stage ONLY your folder
    git status                         # green = staged
-   git commit -m "add folder for <your-username>"
+   git commit -m "<your-username>: update my README"
+   git pull                           # get anyone else's changes first
    git push
    ```
 
