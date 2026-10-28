@@ -147,7 +147,7 @@ If `git push` is **rejected**, someone else pushed first. That's normal; see [Wh
 
 ---
 
-## Part 2 — Make your own modified apps
+## Part 2 — Make your two modified apps
 
 ### 2.1 Always start by pulling
 
@@ -211,6 +211,9 @@ git push
 ```
 
 Good commit messages say **what** changed: `"app2: switch to plotly, add tab layout"`. Avoid messages like `"stuff"` or `"asdf"`.
+
+
+Ensure you get **two** modified apps pushed to github by next class.
 
 ---
 
