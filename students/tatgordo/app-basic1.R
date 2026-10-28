@@ -2,6 +2,11 @@ library(shiny)
 library(bslib) # for page_* functions 
 library(tidyverse)
 
+# Data that is not reactive can be defined here
+# Define the range of x values
+X <- c(-100:100)
+df <- tibble(x_val=X,y_val=X^2)
+
 ui <- page_fluid(
   titlePanel("Evaluating a Function at a Parameter"), # App title
   sidebarLayout( # Sidebar + Main panel layout
@@ -25,10 +30,6 @@ ui <- page_fluid(
 
 # Define server function  
 server <- function(input, output) {
-    # Data that is not reactive can be defined here
-    # Define the range of x values
-    X <- c(-100:100)
-    df <- tibble(x_val=X,y_val=X^2)
 
     # Anything inside output$... is reactive
     # -- Output to UI --
@@ -37,7 +38,9 @@ server <- function(input, output) {
         y    <- input$x^2
         # plots the graph of y = x^2 and highlights the point (input$x, y)
         ggplot(df,aes(x=x_val,y=y_val)) + geom_line() +
-          geom_point(aes(x=input$x,y=y), size = 20)
+          annotate("point", x = input$x, y = y, size = 20)
+          # changed geom_point to annotate because geom_point was trying to draw
+          # geom_point(aes(x=input$x,y=y), size = 20)
 
   })
 }
