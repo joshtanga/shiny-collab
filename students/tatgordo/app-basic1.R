@@ -39,7 +39,7 @@ server <- function(input, output) {
         # plots the graph of y = x^2 and highlights the point (input$x, y)
         ggplot(df,aes(x=x_val,y=y_val)) + geom_line() +
           annotate("point", x = input$x, y = y, size = 20)
-          # changed geom_point to annotate because geom_point was trying to draw
+          # changed geom_point to annotate because geom_point was drawing 201 dots in same spot
           # geom_point(aes(x=input$x,y=y), size = 20)
 
   })
