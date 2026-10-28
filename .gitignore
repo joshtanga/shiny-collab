@@ -1,0 +1,16 @@
+# R / RStudio / Positron
+.Rhistory
+.RData
+.Rproj.user/
+.Ruserdata
+*.Rproj.user
+rsconnect/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# editors
+.vscode/
+.positron/
