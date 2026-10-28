@@ -102,7 +102,7 @@ You don't have to switch back and forth between Positron and a separate Git Bash
 1. In Positron, open the Command Palette with **Ctrl + Shift + P**.
 2. Type **Terminal: Select Default Profile** and press Enter.
 3. Choose **Git Bash**.
-4. Open a new terminal (**Terminal → New Terminal**, or **Ctrl + `**). The prompt should end in `$`, not `PS C:\...>`.
+4. Open a new terminal (**Terminal → New Terminal**, or press `` Ctrl + ` ``, the backtick key, above Tab). The prompt should end in `$`, not `PS C:\>`.
 
 From now on, whenever this README says "in Git Bash", you can just use Positron's terminal.
 
