@@ -317,28 +317,3 @@ You're not inside the `shiny-collab` folder. Run `cd` into it first.
 Don't panic, and don't delete the repo. Ask me. The `.gitignore` should prevent most of this.
 
 ---
-
-## Instructor setup 
-
-
-   ```bash
-   git init
-   git add .
-   git commit -m "starter apps for shiny collab"
-   git branch -M main
-   git remote add origin https://github.com/<you>/shiny-collab.git
-   git push -u origin main
-   ```
-
-3. Add students as collaborators: repo → **Settings → Collaborators → Add people**, by GitHub username. Each student must accept the invite before they can push.
-4. Optional: create the `students/<username>/` folders up front so students only need to pull:
-
-   ```bash
-   for u in caargall cbentley racbrown obrownin dicarril jduerst tatgordo \
-            abhall jolehto jmorton paoswald lrhoades cewallac; do
-     mkdir -p students/$u && echo "# $u" > students/$u/README.md
-   done
-   git add students && git commit -m "student folders" && git push
-   ```
-
-5. Post the Part 3 pairings, e.g. a simple rotation where each student pair-modifies the next person's `app1`.
