@@ -3,12 +3,14 @@
 # Author:     Janson Duerst
 # Started from: starter-apps/app-basic3.R
 # What I changed:
-#
+# Changed the function
+# Added color to the graph
 # ------------------------------------------------------------
 
 library(shiny)
 library(tidyverse)
 library(bslib)
+library(scales)
 
 # notice syntax for fluid page using bslib
 # page_fluid(titlePanel(...), sidebarLayout(...))
@@ -54,10 +56,12 @@ server <- function(input, output) {
     y <- exp(sin(input$x))*cos(input$x)*input$x
     df <- tibble(x_val = X, y_val = exp(sin(X))*cos(X)*X)
 
-    ggplot(df, aes(x = x_val, y = y_val)) +
+    ggplot(df, aes(x = x_val, y = y_val, color=y_val)) +
       geom_line() +
       geom_point(aes(x = input$x, y = y), size = 20) +
       # adding a white point on top to make it more visible
+      scale_color_viridis_c()+
+      theme(legend.position = "none")+
       geom_point(aes(x = input$x, y = y), size = 10, color = "white")
   })
 
