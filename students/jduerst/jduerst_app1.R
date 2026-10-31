@@ -3,7 +3,7 @@
 # Author:     Janson Duerst
 # Started from: starter-apps/app-basic8.R
 # What I changed:
-# Changed dataset to mpg
+# Changed dataset to mpg (and all associated things that change with that)
 # Changed colors
 # ------------------------------------------------------------
 
@@ -59,7 +59,10 @@ server <- function(input, output) {
         layout(scene =
                list(xaxis = list(title = 'City mpg'),
                     yaxis = list(title = 'Highway mpg'),
-                    zaxis = list(title = 'Engine Displacement (L)')))
+                    zaxis = list(title = 'Engine Displacement (L)')
+                    ),
+              #adds a title to the legend
+              legend = list(title = list(text = 'Class of Car')))
   })
 }
 
