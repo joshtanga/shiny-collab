@@ -3,11 +3,10 @@
 # Author:     Janson Duerst
 # Started from: starter-apps/app-basic8.R
 # What I changed:
-#
+# Changed dataset to mpg
 # ------------------------------------------------------------
 
 library(plotly)
-library(palmerpenguins)
 library(bslib)
 library(shiny)
 library(tidyverse)
@@ -24,14 +23,14 @@ ui <- page_fillable(
     # first card
     card(
       # change titlePanel to card_header and put it in a card()
-      card_header("Filtering bill depth with slider with plotly"),
+      card_header("Filtering Number of Cylinders"),
 
       # kill sidebarLayout & sidebarPanel
-      sliderInput("bill_depth",
-                    "Set bill depth",
-                    min = 13.1,
-                    max = 21.5,
-                    value = 15)
+      sliderInput("cyl",
+                    "Number of Cylinders",
+                    min = 4,
+                    max = 8,
+                    value = 6)
       ), # end of first card
 
       # change mainPanel to card and fix parenthesis
@@ -47,15 +46,15 @@ server <- function(input, output) {
   
   output$graph <- renderPlotly({
     
-    plot_ly(filter(penguins,bill_depth_mm < input$bill_depth), 
-            x = ~body_mass_g,
-            y = ~bill_length_mm,
-            z = ~flipper_length_mm,
-            color = ~species) |> 
+    plot_ly(filter(mpg,cyl == input$cyl), 
+            x = ~cty,
+            y = ~hwy,
+            z = ~displ,
+            color = ~class) |> 
         layout(scene =
-               list(xaxis = list(title = 'Body Mass'),
-                    yaxis = list(title = 'Bill Length'),
-                    zaxis = list(title = 'Flipper Length')))
+               list(xaxis = list(title = 'City mpg'),
+                    yaxis = list(title = 'Highway mpg'),
+                    zaxis = list(title = 'Engine Displacement (L)')))
   })
 }
 
