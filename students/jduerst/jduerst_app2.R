@@ -5,6 +5,10 @@
 # What I changed:
 # Changed the function
 # Added color to the graph
+# Changed it so the graph graphs every .1 of x, instead of 1 of x
+# Changed size of point, so it was easier to see the complex graph
+# Changed bounds of graph, and starting value
+# Changed shape of point
 # ------------------------------------------------------------
 
 library(shiny)
@@ -39,9 +43,9 @@ ui <- page_fluid(
       sliderInput(
         "x",
         "Current x-coordinate",
-        min = -100,
-        max = 100,
-        value = 30
+        min = -150,
+        max = 150,
+        value = 5
       )
     ),
     mainPanel(plotOutput("graph"), tableOutput("table"))
@@ -50,7 +54,7 @@ ui <- page_fluid(
 
 
 server <- function(input, output) {
-  X <- c(-100:100)
+  X <- seq(-150,150,.1)
   # reactive section ------------------------
   output$graph <- renderPlot({
     y <- exp(sin(input$x))*cos(input$x)*input$x
@@ -58,11 +62,11 @@ server <- function(input, output) {
 
     ggplot(df, aes(x = x_val, y = y_val, color=y_val)) +
       geom_line() +
-      geom_point(aes(x = input$x, y = y), size = 20) +
+      geom_point(aes(x = input$x, y = y), size = 5, shape = 18, color = "black") +
       # adding a white point on top to make it more visible
       scale_color_viridis_c()+
       theme(legend.position = "none")+
-      geom_point(aes(x = input$x, y = y), size = 10, color = "white")
+      geom_point(aes(x = input$x, y = y), size = 2, color = "white", shape = 18)
   })
 
   output$table <- renderTable(
