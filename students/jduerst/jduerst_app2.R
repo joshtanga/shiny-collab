@@ -38,6 +38,7 @@ ui <- page_fluid(
   "
   )),
   titlePanel('Graph of a function \\(y = e^{sin(x)}cos(x)x\\)'),
+  h6('Janson Duerst'),
   sidebarLayout(
     sidebarPanel(
       sliderInput(
