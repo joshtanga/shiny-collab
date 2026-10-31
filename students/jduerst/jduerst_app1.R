@@ -4,17 +4,20 @@
 # Started from: starter-apps/app-basic8.R
 # What I changed:
 # Changed dataset to mpg
+# Changed colors
 # ------------------------------------------------------------
 
 library(plotly)
 library(bslib)
 library(shiny)
+library(scales)
 library(tidyverse)
 
 
 ui <- page_fillable(
 
   titlePanel("Demonstration of using cards() to control layout in RShiny"),
+  h6('Janson Duerst'),
 
   layout_column_wrap(
 
@@ -45,12 +48,14 @@ ui <- page_fillable(
 server <- function(input, output) {
   
   output$graph <- renderPlotly({
-    
+
     plot_ly(filter(mpg,cyl == input$cyl), 
             x = ~cty,
             y = ~hwy,
             z = ~displ,
-            color = ~class) |> 
+            color = ~class,
+            # Changing colors (viridis has 5 pallette options, D is default)
+            colors = viridis_pal(option = "A")(7)) |> 
         layout(scene =
                list(xaxis = list(title = 'City mpg'),
                     yaxis = list(title = 'Highway mpg'),

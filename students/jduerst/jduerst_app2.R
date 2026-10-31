@@ -67,6 +67,7 @@ server <- function(input, output) {
       # adding a white point on top to make it more visible
       scale_color_viridis_c()+
       theme(legend.position = "none")+
+      labs(x="x-axis",y="y-axis")+
       geom_point(aes(x = input$x, y = y), size = 2, color = "white", shape = 18)
   })
 
