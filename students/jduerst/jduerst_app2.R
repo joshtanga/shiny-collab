@@ -31,7 +31,7 @@ ui <- page_fluid(
     });
   "
   )),
-  titlePanel('Graph of a function \\(y = x^2\\)'),
+  titlePanel('Graph of a function \\(y = e^{sin(x)}cos(x)x\\)'),
   sidebarLayout(
     sidebarPanel(
       sliderInput(
@@ -51,8 +51,8 @@ server <- function(input, output) {
   X <- c(-100:100)
   # reactive section ------------------------
   output$graph <- renderPlot({
-    y <- input$x^2
-    df <- tibble(x_val = X, y_val = X^2)
+    y <- exp(sin(input$x))*cos(input$x)*input$x
+    df <- tibble(x_val = X, y_val = exp(sin(X))*cos(X)*X)
 
     ggplot(df, aes(x = x_val, y = y_val)) +
       geom_line() +
@@ -65,7 +65,7 @@ server <- function(input, output) {
     {
       tibble(
         "\\(x\\)" = input$x,
-        "\\(x^2\\)" = (input$x)^2
+        "\\(e^{sin(x)}cos(x)x\\)" = exp(sin(input$x))*cos(input$x)*input$x
       )
     },
     sanitize.text.function = identity
