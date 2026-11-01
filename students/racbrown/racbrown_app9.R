@@ -3,7 +3,7 @@
 # Author:     Rachel Brown
 # Started from: starter-apps/app-basic5.R
 # What I changed:
-#   - swapped the y = x^2 curve for the mpg (fuel economy) dataset
+#   - swapped the y = x^2 curve for the mpg dataset
 #   - added radioButtons so the user can choose highway or city mpg
 #   - added a renderText output that summarizes the cars shown
 # ------------------------------------------------------------
