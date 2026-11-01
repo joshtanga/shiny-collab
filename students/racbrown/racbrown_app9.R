@@ -1,46 +1,58 @@
+# ------------------------------------------------------------
+# App:        racbrown_app9.R
+# Author:     Rachel Brown
+# Started from: starter-apps/app-basic5.R
+# What I changed:
+#   - swapped the y = x^2 curve for the mpg (fuel economy) dataset
+#   - added radioButtons so the user can choose highway or city mpg
+#   - added a renderText output that summarizes the cars shown
+# ------------------------------------------------------------
+
 library(shiny)
-library(bslib) # for page_* functions 
+library(bslib)
 library(tidyverse)
 
 ui <- page_fluid(
-  titlePanel("Evaluating a Function at a Parameter"), # App title
-  sidebarLayout( # Sidebar + Main panel layout
-    # Sidebar with a slider input for x-coordinate
+  titlePanel("Engine Size and Fuel Economy"),
+  sidebarLayout(
     sidebarPanel(
-      # slider for selecting x value
-      sliderInput("x",
-                  "Current x-coordinate",
-                  min = -100,
-                  max = 100,
-                  value = 30)
+      sliderInput("min_displ",
+                  "Minimum engine size (liters)",
+                  min = 1.6,
+                  max = 7,
+                  value = 1.6,
+                  step = 0.1),
+      radioButtons("mpg_type",
+                   "Mileage type",
+                   choices = c("Highway" = "hwy", "City" = "cty"),
+                   selected = "hwy")
     ),
-    
-    # Show a plot of the graph of y = x^2
     mainPanel(
-      plotOutput("myplot")
+      plotOutput("myplot"),
+      textOutput("summary_text")
     )
   )
 )
 
-
-# Define server function  
 server <- function(input, output) {
-    # Data that is not reactive can be defined here
-    # Define the range of x values
-    X <- c(-100:100)
-    df <- tibble(x_val=X,y_val=X^2)
+  output$myplot <- renderPlot({
+    d <- mpg |> filter(displ >= input$min_displ)
 
-    # Anything inside output$... is reactive
-    # -- Output to UI --
-    output$myplot <- renderPlot({
-        # input$x is the current x value from the slider
-        y    <- input$x^2
-        # plots the graph of y = x^2 and highlights the point (input$x, y)
-        ggplot(df,aes(x=x_val,y=y_val)) + geom_line() +
-          geom_point(aes(x=input$x,y=y), size = 20)
+    ggplot(d, aes(x = displ, y = .data[[input$mpg_type]], color = class)) +
+      geom_point(size = 3, alpha = 0.8) +
+      labs(x = "Engine size (liters)",
+           y = ifelse(input$mpg_type == "hwy",
+                      "Highway miles per gallon",
+                      "City miles per gallon"),
+           color = "Vehicle class")
+  })
 
+  output$summary_text <- renderText({
+    d <- mpg |> filter(displ >= input$min_displ)
+    paste0("Showing ", nrow(d), " cars. Average ",
+           ifelse(input$mpg_type == "hwy", "highway", "city"),
+           " mileage: ", round(mean(d[[input$mpg_type]]), 1), " mpg.")
   })
 }
 
-# Run the application 
 shinyApp(ui = ui, server = server)
