@@ -5,7 +5,7 @@
 # What I changed:
 #   - changed slider in ui to select for colors
 #   - added a color collection to server
-#   - 
+#   - changed renderPlot() code so plot changes color based on slider position
 # ------------------------------------------------------------
 
 # level 2 complexity
@@ -46,10 +46,10 @@ colors <- c("red", "blue", "green", "purple", "orange")
     # Converts the graph to .html * makes it reactive
     output$graph <- renderPlot({
         y    <- input$x^2
+        # Select a color based on the slider position
+    selected_color <- colors[input$color]
         ggplot(df,aes(x=x_val,y=y_val)) + geom_line() +
-          geom_point(aes(x=input$x,y=y), size = 20) + 
-          geom_point(aes(x=input$x,y=y), size = 10,
-                     color = "white")
+          geom_point(size = 5, color = selected_color)
     })
   
     # Converts the table to .html * makes it reactive
