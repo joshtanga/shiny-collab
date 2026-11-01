@@ -1,3 +1,14 @@
+# ------------------------------------------------------------
+# App:        <tatgordo>_app1.R
+# Author:     <Tate Gordon>
+# Started from: starter-apps/app-basic1.R
+# What I changed:
+#  - geom_point is being used to draw a point at where the current x value is according to x^2
+#  - the problem with this is its taking in all 201 rows of data so in turn its drawing 201 points on top of eachother
+#  - annotate is used to add single items like text or points to a plot
+#  - annotate draws a single point at the current x value according to x^2 instead of 201 times
+# ------------------------------------------------------------
+
 library(shiny)
 library(bslib) # for page_* functions 
 library(tidyverse)
