@@ -45,7 +45,6 @@ colors <- c("red", "blue", "green", "purple", "orange")
     # reactive part -- i.e., updates when input$x changes
     # Converts the graph to .html * makes it reactive
     output$graph <- renderPlot({
-        y    <- input$x^2
         # Select a color based on the slider position
     selected_color <- colors[input$color]
         ggplot(df,aes(x=x_val,y=y_val)) + geom_line() +
