@@ -4,7 +4,7 @@
 # Started from: starter-apps/app-basic2.R
 # What I changed:
 #   - changed slider in ui to select for colors
-#   - 
+#   - added a color collection to server
 #   - 
 # ------------------------------------------------------------
 
@@ -39,6 +39,8 @@ server <- function(input, output) {
     # Define the function & store the data
     X <- c(-100:100)
     df <- tibble(x_val=X,y_val=X^2)
+  # Create a collection of 5 colors
+colors <- c("red", "blue", "green", "purple", "orange")
 
     # reactive part -- i.e., updates when input$x changes
     # Converts the graph to .html * makes it reactive
