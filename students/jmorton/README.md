@@ -1,2 +1,4 @@
-# Jett Morton - Im a chemistry major
+# Jett Morton 
+
+Im a chemistry major
 
