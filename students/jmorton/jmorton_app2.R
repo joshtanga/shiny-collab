@@ -1,7 +1,16 @@
-library(plotly)
-library(palmerpenguins)
-library(bslib)
+# ------------------------------------------------------------
+# App:        jmorton_app2.R
+# Author:     Jett Morton
+# Started from: starter-apps/app-basic4.R
+# What I changed:
+#   - changed library to use Theoph data
+#   - 
+#   - 
+# ------------------------------------------------------------
 
+library(plotly)
+library(datasets)
+library(bslib)
 
 
 # level 4 complexity
