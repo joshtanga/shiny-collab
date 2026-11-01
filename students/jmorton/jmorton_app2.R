@@ -5,12 +5,12 @@
 # What I changed:
 #   - changed library to use Theoph data
 #   - change slider and select button in ui
-#   - 
+#   - changed graph and table in server to use Theoph data
 # ------------------------------------------------------------
 
 
 library(plotly)
-library(palmerpenguins)
+library(datasets)
 
 
 # level 5 complexity
@@ -44,25 +44,28 @@ ui <- page_fluid(
 server <- function(input, output) {
   
   output$graph <- renderPlotly({
-    
-    # filter within the plot_ly call is ok
-    plot_ly(filter(penguins,
-                   bill_depth_mm < input$bill_depth,
-                   sex == input$sex), 
-            x = ~body_mass_g,
-            y = ~bill_length_mm,
-            z = ~flipper_length_mm,
-            color = ~species) 
-    # fig <- fig %>% layout(scene =
-    #                         list(xaxis = list(title = 'Body Mass'),
-    #                              yaxis = list(title = 'Bill Length'),
-    #                              zaxis = list(title = 'Flipper Length')))
-  })
+
+  # filter within the plot_ly call is ok
+  plot_ly(filter(Theoph,
+                 Wt < input$Wt,
+                 Subject == input$Subject), 
+          x = ~Time,
+          y = ~conc,
+          z = ~Wt,
+          color = ~Subject)
+})
   
   output$table <- renderTable({
-    mydata <- filter(penguins,bill_depth_mm < input$bill_depth,sex == input$sex) |> arrange(desc(body_mass_g))
-    tibble(body_mass = mydata$body_mass_g, bill_length = mydata$bill_length_mm, flipper_length = mydata$flipper_length_mm, species = mydata$species)
-  })
+  mydata <- filter(Theoph,
+                   Wt < input$Wt,
+                   Subject == input$Subject) |> 
+    arrange(desc(Wt))
+
+  tibble(Subject = mydata$Subject,
+         Time = mydata$Time,
+         conc = mydata$conc,
+         Wt = mydata$Wt)
+})
 }
 
 # Run the application 
