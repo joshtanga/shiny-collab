@@ -1,5 +1,15 @@
+# ------------------------------------------------------------
+# App:cbentley_app1.R
+# Author: Caity Bentley
+# Started from: starter-apps/app-basic6.R
+# What I changed:
+#   - added a table showing number of penguins from each species
+#     that reacts to the slider
+# ------------------------------------------------------------
+
 library(plotly)
 library(palmerpenguins)
+
 
 
 
