@@ -10,6 +10,7 @@
 # What I changed:
 #   - Changed the header
 #   - Placed everything into cards
+#   - Added headers to all cards
 # ------------------------------------------------------------
 
 
@@ -23,6 +24,11 @@ library(tidyverse)
 library(bslib)
 
 ui <- page_fillable(
+  titlePanel("Using Cards and Theoph data to demonstrate using plotly"),
+  layout_column_wrap(
+    width = 1/2,
+
+    #card 1 with slider input
   card(
     card_header("Filtering weight with slider with plotly"),
       sliderInput("Wt",
@@ -30,17 +36,23 @@ ui <- page_fillable(
               min = min(Theoph$Wt),
               max = max(Theoph$Wt),
               value = min(Theoph$Wt))),
-  
+  #card 2 with select input
   card(
+    card_header("Choosing Subject Input"),
   selectInput("Subject",
               "Choose Subject",
               choices = levels(Theoph$Subject),
               selected = levels(Theoph$Subject)[1])),
     
-
-      card(plotlyOutput("graph")),
-      card(tableOutput("table"))
+      #card 3 with graph
+      card(card_header("Graph of Time, Theophylline Concentration (mg/L), and Weight (kg) in Chosen Subject"),
+      plotlyOutput("graph")),
+      #card 4 with table
+      card(card_header("Output Table"),
+        tableOutput("table"))
     )
+
+  )
 
 
 server <- function(input, output) {
