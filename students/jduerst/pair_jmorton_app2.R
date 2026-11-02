@@ -23,6 +23,9 @@ library(tidyverse)
 library(bslib)
 
 ui <- page_fillable(
+  layout_column_wrap(
+    width = 1/2,
+
   card(
     card_header("Filtering weight with slider with plotly"),
       sliderInput("Wt",
@@ -41,6 +44,8 @@ ui <- page_fillable(
       card(plotlyOutput("graph")),
       card(tableOutput("table"))
     )
+
+  )
 
 
 server <- function(input, output) {
