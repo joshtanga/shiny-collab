@@ -1,3 +1,12 @@
+#------------------------------------------------------------
+# App:        obrownin_app5.R
+# Author:     Olivia Browning
+# Started from: starter-apps/app-basic5.R
+# What I changed:
+#   - Added a reset button for filters
+# ------------------------------------------------------------
+
+
 library(plotly)
 library(palmerpenguins)
 
@@ -20,9 +29,11 @@ ui <- page_fluid(
       selectInput("sex",
                   "Choose sex",
                   choices = c("male","female"),
-                  selected = "female")
+                  selected = "female"),
+  # ⬇️ PUT IT HERE ⬇️
+  hr(), 
+  actionButton("reset_btn", "Reset Filters")
     ),
-    
     mainPanel(
       plotlyOutput("graph"),
       tableOutput("table")
@@ -31,7 +42,7 @@ ui <- page_fluid(
 )
 
 
-server <- function(input, output) {
+server <- function(input, output, session) {
   
   output$graph <- renderPlotly({
     
@@ -49,6 +60,12 @@ server <- function(input, output) {
     #                              zaxis = list(title = 'Flipper Length')))
   })
   
+     # FEATURE: Listen for the reset button click
+  observeEvent(input$reset_btn, {
+    updateSliderInput(session, "bill_depth", value = 15)
+    updateSelectInput(session, "sex", selected = "female")
+  })
+
   output$table <- renderTable({
     mydata <- filter(penguins,bill_depth_mm < input$bill_depth,sex == input$sex) |> arrange(desc(body_mass_g))
     tibble(body_mass = mydata$body_mass_g, bill_length = mydata$bill_length_mm, flipper_length = mydata$flipper_length_mm, species = mydata$species)
