@@ -6,7 +6,7 @@
 #   -
 #   - 
 # Feature
-#   -
+#   - Tate: added the Flatly theme and a light/dark mode switch.
 # ------------------------------------------------------------
 
 library(plotly)
@@ -17,15 +17,19 @@ library(tidyverse)
 library(bslib)
 
 ui <- page_fluid(
+  # Feature dark theme
+  theme = bs_theme(version = 5, bootswatch = "flatly"),
   titlePanel("Comparing the sexes bill depth using proximity: plotly"),
   sidebarLayout(
     sidebarPanel(
+      # Feature dark theme
+      input_dark_mode(),
       p('Make Selections to filter the data shown in the plot', style='font-size:8pt'),
       sliderInput("bill_depth",
                   "Set bill depth",
                   min = 13.1,
                   max = 21.5,
-                  value = c(0,15)), # a range slider
+                  value = c(13.1,15)), # a range slider
       selectInput("sex",
                   "Choose sex",
                   choices = c("male","female"),
