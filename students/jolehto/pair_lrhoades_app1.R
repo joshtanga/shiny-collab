@@ -1,6 +1,6 @@
 
 # ------------------------------------------------------------
-# App: lrhoades_app1.R
+# App: pair_lrhoades_app1.R
 # Original Author: Lyle Rhoades (students/lrhoades_app1.R)
 # Pair-modified by: Joshua Lehto
 # What I changed: 
