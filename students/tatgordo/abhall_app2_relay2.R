@@ -1,8 +1,16 @@
+# ------------------------------------------------------------
+# App:        abhall_app2.R
+# Author:     Abby Hall
+# Started from: starter-apps/app-basic6.R
+# What I changed:
+#   -
+#   - 
+# Feature
+#   -
+# ------------------------------------------------------------
+
 library(plotly)
 library(palmerpenguins)
-
-
-
 # level 4 complexity
 library(shiny)
 library(tidyverse)
