@@ -2,7 +2,6 @@
 # BUG HUNT 02   difficulty: *
 # Symptom:  the app runs and there are no errors, but the
 #           plot never shows up. The main area is empty.
-# Cause: plotOutput() had the variable mass_plot instead of massplot
 # ------------------------------------------------------------
 library(shiny)
 library(bslib)
@@ -17,7 +16,7 @@ ui <- page_sidebar(
       selected = c("Adelie", "Chinstrap", "Gentoo")
     )
   ),
-  plotOutput("massplot")
+  plotOutput("massplot") # FIX: changed `mass_plot` to `massplot`
 )
 
 server <- function(input, output) {
