@@ -2,7 +2,6 @@
 # BUG HUNT 01   difficulty: *
 # Symptom:  the app won't start. R stops with an error
 #           before anything appears.
-# Cause: the first selectInput needed a comma at the end of the line
 # ------------------------------------------------------------
 library(shiny)
 library(bslib)
@@ -11,7 +10,7 @@ library(tidyverse)
 ui <- page_sidebar(
   title = "mtcars histogram",
   sidebar = sidebar(
-    selectInput("var", "Variable", choices = c("mpg", "hp", "wt", "qsec")), #<- added a comma
+    selectInput("var", "Variable", choices = c("mpg", "hp", "wt", "qsec")), # FIX: added a missing comma
     sliderInput("bins", "Number of bins", min = 5, max = 40, value = 15)
   ),
   plotOutput("hist")
