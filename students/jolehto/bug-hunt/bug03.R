@@ -3,7 +3,6 @@
 # Symptom:  no errors, but the second card is missing its
 #           title bar. The first card has one; the second
 #           doesn't.
-# Cause: card_header should not be assigned something ('='). instead, put desired name inside parenthesis 
 # ------------------------------------------------------------
 library(shiny)
 library(bslib)
@@ -16,7 +15,7 @@ ui <- page_fillable(
       plotOutput("mpg_plot")
     ),
     card(
-      card_header("Summary"),
+      card_header("Summary"), # FIX: put header name inside of parentheses instead of using `=`
       tableOutput("mpg_table")
     )
   )
