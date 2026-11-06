@@ -1,3 +1,12 @@
+# ------------------------------------------------------------
+# App:        abhall_app2.R
+# Author:     Abby Hall
+# Started from: starter-apps/app-basic6.R
+# What I changed:
+#   - added select input for species
+#   - added filtering for species for plotly graph
+# ------------------------------------------------------------
+
 library(plotly)
 library(palmerpenguins)
 
