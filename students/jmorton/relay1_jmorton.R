@@ -13,7 +13,7 @@
 # > styling
 # --------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------
-# App:        pair_jolehto_app1.R
+# App:        relay1_jmorton.R
 # Original author: Josh Lehto  (students/jolehto/jolehto_app4.R)
 # Feature relay added by: Jett Morton
 # What I changed:

@@ -15,3 +15,10 @@ pair_jmorton_app2.R:
 - I added cards to his file.
 - I also added headers to each card in the file.
 - I also gave the shiny app an overall title.
+
+Relay:
+- Did 2 different relay edits
+
+Bugs:
+- Fixed bugs 3,8,11
+- Added my own bug
