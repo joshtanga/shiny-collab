@@ -19,6 +19,7 @@ ui <- page_sidebar(
   plotOutput("scatter")
 )
 
+#the aes was only getting a string value of variable in the data, need to add get to convert value to varible in data
 server <- function(input, output) {
   output$scatter <- renderPlot({
     ggplot(mtcars, aes(x = get(input$xvar), y = get(input$yvar))) +
