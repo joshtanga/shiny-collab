@@ -47,6 +47,8 @@ africaGeometry <- africaGeometry |> mutate(name = case_when(
     name == "Eq. Guinea" ~ "Equatorial Guinea",
     name == "Cabo Verde" ~ "Cape Verde",
     name == "eSwatini" ~ "Eswatini",
+    name == "W. Sahara" ~ "Western Sahara",
+    name == "Dem. Rep. Congo" ~ "Democratic Republic of the Congo",
     TRUE ~ name 
   ))
 
@@ -74,11 +76,17 @@ ui <- page_fillable(
       selectInput("Family",
         "Choose Language Family",
         choices = sort(unique(africaLangsAndGeo$family)),
-        selected = sort(unique(africaLangsAndGeo$family))[1])),
+        selected = sort(unique(africaLangsAndGeo$family))[1]),
+      
+      selectInput("Country",
+        "Choose Country",
+        choices = sort(unique(africaLangsAndGeo$name)),
+        selected = sort(unique(africaLangsAndGeo$name))[1])),
     
     navset_card_tab(
     nav_panel("LangCountries", p("Fill in here later"), plotOutput("AfricaLangPlot")),
-    nav_panel("FamCountries", p("Fill in here later"), plotOutput("AfricaFamPlot"))
+    nav_panel("FamCountries", p("Fill in here later"), plotOutput("AfricaFamPlot")),
+    nav_panel("Langs In Country", tableOutput("LangsInCountryTable"))
     )
   )
 )
@@ -94,7 +102,7 @@ output$AfricaLangPlot <- renderPlot({
       TRUE ~ "Not Spoken")
   )
   
-  #arranged spoken because the map plots every country over and over for each language
+  #arranged langSpoken because the map plots every country over and over for each language
   #in it, without the arrange, the map would plot a spoken version, and immediately
   #plot over it with a not spoken
   africaLangsAndGeo |> arrange(langSpoken) |> ggplot() +
@@ -109,13 +117,19 @@ output$AfricaFamPlot <- renderPlot({
       family == input$Family ~ "Spoken",
       TRUE ~ "Not Spoken")
   )
-  
-  #arranged spoken because the map plots every country over and over for each language
-  #in it, without the arrange, the map would plot a spoken version, and immediately
-  #plot over it with a not spoken
   africaLangsAndGeo |> arrange(famSpoken) |> ggplot() +
   geom_sf(aes(fill = famSpoken)) +
   theme_void()
+})
+  
+output$LangsInCountryTable <- renderTable({
+  langsInCountry <- africaLangsAndGeo |> filter(name == input$Country) |>
+    arrange(language)
+
+  tibble(Language = langsInCountry$language,
+    LanguageFamily = langsInCountry$family,
+    NativeSpeakers = langsInCountry$native_speakers)
+
 })
 
 }
