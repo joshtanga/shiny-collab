@@ -13,7 +13,8 @@
 
 ## How to run it
 1. Install the packages: `install.packages(c("shiny", "bslib", "tidyverse"))`
-2. Open `app.R` in Positron and click **Run App**.
+2. Open `app.R` in Positron and click **Run App**. Make sure to run the app within `shiny-project`.
+
 
 ## What the app does
 - **Inputs:** <each input, and why it fits this data>
