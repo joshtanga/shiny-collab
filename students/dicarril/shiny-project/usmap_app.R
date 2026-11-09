@@ -7,11 +7,11 @@ library(usmap)
 library(scales)
 
 # Store the county population data
-county_pop <- usmap::countypop
+county_pop <- source("load.R")
 
 ui <- page_fillable(
   
-  title = "United States County Population",
+  title = "United States County Poverty",
   
   # Card containing the two filters
   card(
