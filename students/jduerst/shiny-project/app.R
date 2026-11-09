@@ -73,6 +73,9 @@ output$AfricaPlot <- renderPlot({
       TRUE ~ "Not Spoken")
   )
   
+  #arranged spoken because the map plots every country over and over for each language
+  #in it, without the arrange, the map would plot a spoken version, and immediately
+  #plot over it with a not spoken
   africaLangsAndGeo |> arrange(spoken) |> ggplot() +
   geom_sf(aes(fill = spoken)) +
   theme_void()
