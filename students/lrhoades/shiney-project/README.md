@@ -1,14 +1,14 @@
 # <Your App's Title>
 
-**Author:** <Lyle Rhoades>
+**Author:** Lyle Rhoades
 
 ## The question
-<One or two sentences: what can someone explore with this app?>
+Which video game publishers have the highest total global sales, and how do their sales compare across gaming platforms, genres, and geographic regions?
 
 ## The data
-- **Source:** [<dataset name>](<link>)
-- **One row is:** <e.g. one county in one year>
-- **Variables I use:** <list them>
+- **Source:** Video Games Sales with Ratings(https://www.kaggle.com/datasets/rush4ratio/video-game-sales-with-ratings)
+- **One row is:** Call of Duty: Black Opps, X360, 2010, Shooter, Activision, 9.7, 3.68, 14.61
+- **Variables I use:** Name, Platform, Year of Release, Genre, Publisher, NA sales, Eu Sales, Global sales
 - **Cleaning:** <what you changed and why>
 
 ## How to run it
