@@ -54,7 +54,7 @@ africaGeometry <- africaGeometry |> mutate(name = case_when(
 africaLangsAndGeo <- merge(africaGeometry, languagesOfAfrica, 
   by.y = "country", by.x= "name", all = TRUE)|>
 replace_na(list(
-    language = "No Language Data"))
+    language = "No Language Data", family = "No Language Data"))
 
 
 
@@ -76,15 +76,10 @@ ui <- page_fillable(
         choices = sort(unique(africaLangsAndGeo$family)),
         selected = sort(unique(africaLangsAndGeo$family))[1])),
     
-    card(
-      card_header("LangCountries"),
-      p("Fill in here later"),
-      plotOutput("AfricaLangPlot")),
-
-    card(
-      card_header("FamCountries"),
-      p("Fill in here later"),
-      plotOutput("AfricaFamPlot"))
+    navset_card_tab(
+    nav_panel("LangCountries", p("Fill in here later"), plotOutput("AfricaLangPlot")),
+    nav_panel("FamCountries", p("Fill in here later"), plotOutput("AfricaFamPlot"))
+    )
   )
 )
   
