@@ -16,15 +16,27 @@ ui <- page_fillable(
   # Card containing the two filters
   card(
     card_header("Map Filters"),
-    layout_columns( col_widths = c(6,6),
+    layout_columns( col_widths = c(4,4,4),
     sliderInput(
-      "pop",
-      "County Population range:",
-      min = min(county_pop$pop_2022),
-      max = max(county_pop$pop_2022),
-      value = range(county_pop$pop_2022),
-      step = 10000
+      "Poverty",
+      "Poverty Rate:",
+      min = min(county_data$poverty_rate),
+      max = max(county_data$poverty_rate),
+      value = range(county_data$poverty_rate),
+      step = 0.5, 
+      post = "%"
     ),
+
+    # Filter counties by state
+      selectInput(
+        "state",
+        "Select a state:",
+        choices = c(
+          "All states" = "All",
+          sort(unique(county_data$state))
+        ),
+        selected = "All"
+      ),
     
     textInput(
       "county",
