@@ -44,11 +44,26 @@ ui <- page_fillable(
       placeholder = "Example: Marquette"
     )
   ),
+
+  # Display a summary and table beside each other
+  layout_columns(
+    col_widths = c(4, 8),
+    
+    value_box(
+      title = "Counties shown",
+      value = textOutput("n_counties")
+    ),
+    
+    card(
+      card_header("Counties With the Highest Poverty Rates"),
+      tableOutput("county_table")
+    )
+  ),
   
   # Card containing the map
   card(
     full_screen = TRUE,
-    card_header("County Population Map"),
+    card_header("County Poverty Map"),
     plotOutput("map", height = "600px")
   )
 )
