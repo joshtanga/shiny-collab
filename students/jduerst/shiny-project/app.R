@@ -31,8 +31,7 @@ languagesOfAfrica <- languagesOfAfrica |> mutate(family = case_when(
   family == "English" ~ "English Creole",
   family == "Portugues" ~ "Portuguese Creole",
   family == "Kongo-based" ~ "Kongo-Based Creole",
-  TRUE ~ family
-))
+  TRUE ~ family))
 
 #To get geometry for mapping Africa
 africaGeometry <- ne_countries(scale = "medium", returnclass = "sf") |>
@@ -56,7 +55,7 @@ africaGeometry <- africaGeometry |> mutate(name = case_when(
 africaLangsAndGeo <- merge(africaGeometry, languagesOfAfrica, 
   by.y = "country", by.x= "name", all = TRUE)|>
 replace_na(list(
-    language = "No Language Data", family = "No Language Data"))
+    language = "No Language Data", family = "No Language Data", native_speakers = 0))
 
 
 
@@ -81,7 +80,14 @@ ui <- page_fillable(
       selectInput("Country",
         "Choose Country",
         choices = sort(unique(africaLangsAndGeo$name)),
-        selected = sort(unique(africaLangsAndGeo$name))[1])),
+        selected = sort(unique(africaLangsAndGeo$name))[1]),
+    
+      sliderInput("SpeakerNum",
+      "Set Min Number of Native Speakers",
+      min = min(africaLangsAndGeo$native_speakers),
+      max = max(africaLangsAndGeo$native_speakers),
+      value = min(africaLangsAndGeo$native_speakers)
+      )),
     
     navset_card_tab(
     nav_panel("LangCountries", p("Fill in here later"), plotOutput("AfricaLangPlot")),
