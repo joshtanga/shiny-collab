@@ -5,6 +5,7 @@ library(tidyverse)
 library(bslib)
 library(usmap)
 library(scales)
+library(shinythemes)
 
 # Store the county poverty data
 source("load.R")
@@ -12,6 +13,17 @@ source("load.R")
 ui <- page_fillable(
   
   title = "United States County Poverty",
+  theme = bs_theme(version = 5, bootswatch = "slate"),
+
+  tags$style(
+    HTML(
+      "
+      .card-header {
+        color: white !important;
+      }
+      "
+    )
+  ),
   
 layout_columns(
   col_widths = c(3,9),
@@ -26,7 +38,7 @@ layout_columns(
           min = min(county_data$poverty_rate),
           max = max(county_data$poverty_rate),
           value = range(county_data$poverty_rate),
-          step = 3, 
+          step = 0.5, 
           post = "%"
         ),
 
@@ -45,7 +57,7 @@ layout_columns(
       textInput(
         "county",
         "Search for a county:",
-        placeholder = "Example: Marquette"
+        placeholder = "Example: Marquette", 
       ),
 
       br(),
@@ -53,12 +65,14 @@ layout_columns(
       # Total number of counties being displayed
       value_box(
         title = "Counties shown",
-        value = textOutput("n_counties")
+        value = textOutput("n_counties"), 
+        theme = "info"
       ),
       # Average poverty rate for the current filter
       value_box(
         title = "Average poverty rate",
-        value = textOutput("avg_poverty")
+        value = textOutput("avg_poverty"), 
+        theme = "warning"
       )
     )
   ),
@@ -75,7 +89,7 @@ layout_columns(
     br(),
     # Display summary table under map
     card(
-      card_header("Ten Counties With the Highest Poverty Rates"),
+      card_header("Top Ten Counties With the Highest Poverty Rates"),
       tableOutput("county_table")
     )
    )
@@ -85,19 +99,17 @@ layout_columns(
 
 server <- function(input, output) {
   
-  # Filter counties using the population slider and county search
+  # Filter counties using the poverty slider and county search
 filtered_counties <- reactive({
   
-  # Begin with the complete county population dataset.
-  # Keep counties whose 2022 population falls between the
-  # minimum and maximum values selected with the slider.
+  # Keep counties within the selected poverty-rate range
   filtered <- county_data |>
     filter(
       poverty_rate >= input$poverty[1],
       poverty_rate <= input$poverty[2]
     )
-  # input$pop[1] is the lower end of the population slider.
-  # input$pop[2] is the upper end of the population slider.
+  # input$poverty[1] is the lower end of the population slider.
+  # input$poverty[2] is the upper end of the population slider.
   
   # Apply the state filter unless all states are selected
     if (input$state != "All") {
