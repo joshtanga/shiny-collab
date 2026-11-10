@@ -7,6 +7,12 @@
 #   - Added renderText() to show what species is selected
 # ------------------------------------------------------------
 
+# Relay round: 2
+# Started from: students/caargall/app5.R
+# Cards drawn: Plot brush + brushedpoints()
+# Added: -ggplot and geom_point to be able to use this feature
+#        -added a brushed points
+#        - changed y variable to make it usuable in ggplot instead of plotly
 
 library(plotly)
 library(palmerpenguins)
@@ -47,37 +53,44 @@ ui <- page_fluid(
 
 
 server <- function(input, output) {
-  
+
+  filtered <- reactive({
+    filter(penguins,
+           bill_depth_mm < input$bill_depth,
+           sex == input$sex,
+           species %in% input$species)
+  })
+
   output$graph <- renderPlotly({
-    
-    # filter within the plot_ly call is ok
-    plot_ly(filter(penguins,
-                   bill_depth_mm < input$bill_depth,
-                   sex == input$sex,
-                  species %in% input$species), 
+
+    plot_ly(filtered(),
             x = ~body_mass_g,
             y = ~bill_length_mm,
             z = ~flipper_length_mm,
-            color = ~species) 
-    # fig <- fig %>% layout(scene =
-    #                         list(xaxis = list(title = 'Body Mass'),
-    #                              yaxis = list(title = 'Bill Length'),
-    #                              zaxis = list(title = 'Flipper Length')))
+            color = ~species)
+
   })
+  
   
   output$speciesSelected <- renderText({
     paste("Species Selected: ", paste(input$species, collapse = ", "))
   })
 
   output$table <- renderTable({
-    mydata <- filter(penguins,bill_depth_mm < input$bill_depth,sex == input$sex, species %in% input$species) |> arrange(desc(body_mass_g))
-    tibble(body_mass = mydata$body_mass_g, bill_length = mydata$bill_length_mm, flipper_length = mydata$flipper_length_mm, species = mydata$species)
+    mydata <- filtered() |>
+      arrange(desc(body_mass_g))
   })
 
   output$summary <- renderText({
-  str_c("Showing ", nrow(filtered()), " of ", nrow(df), " rows; ",
-        "mean = ", round(mean(filtered()$value, na.rm = TRUE), 1))
-})
+
+    str_c(
+      "Showing ", nrow(filtered()), " of ", nrow(penguins),
+      " rows; mean bill length = ",
+      round(mean(filtered()$bill_length_mm, na.rm = TRUE), 1),
+      " mm"
+    )
+
+  })
 
   
 }
