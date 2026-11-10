@@ -13,19 +13,22 @@ ui <- page_fillable(
   
   title = "United States County Poverty",
   
+layout_columns(
+  col_widths = c(8,4)
+  # Dividing the page in half
+  div(
   # Card containing the two filters
-  card(
-    card_header("Map Filters"),
-    layout_columns( col_widths = c(4,4,4),
-    sliderInput(
-      "poverty",
-      "Poverty Rate:",
-      min = min(county_data$poverty_rate),
-      max = max(county_data$poverty_rate),
-      value = range(county_data$poverty_rate),
-      step = 0.5, 
-      post = "%"
-    ),
+    card(
+      card_header("Map Filters"),
+      sliderInput(
+        "poverty",
+        "Poverty Rate:",
+        min = min(county_data$poverty_rate),
+        max = max(county_data$poverty_rate),
+        value = range(county_data$poverty_rate),
+        step = 0.5, 
+        post = "%"
+      ),
 
     # Filter counties by state
       selectInput(
@@ -38,34 +41,41 @@ ui <- page_fillable(
         selected = "All"
       ),
     
-    textInput(
-      "county",
-      "Search for a county:",
-      placeholder = "Example: Marquette"
+      textInput(
+        "county",
+        "Search for a county:",
+        placeholder = "Example: Marquette"
+      ),
+
+    br(),
+
+    value_box(
+      title = "Counties shown",
+      value = textOutput("n_counties")
     )
+
+
   )
 ),
   
+
+# Creating the other half of the page
+div(
 # Card containing the map
   card(
     card_header("County Poverty Map"),
     plotOutput("map", height = "600px")
   ),
 
+  br(),
   # Display a summary and table beside each other
-  layout_columns(
-    col_widths = c(4, 8),
-    
-    value_box(
-      title = "Counties shown",
-      value = textOutput("n_counties")
-    ),
     
     card(
       card_header("Counties With the Highest Poverty Rates"),
       tableOutput("county_table")
     )
-  )
+)
+)
 )
 
 
