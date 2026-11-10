@@ -11,6 +11,7 @@ library(rnaturalearth)
 library(rnaturalearthdata)
 library(sf)
 library(scales)
+library(ggiraph)
 
 #this zone can be used for computations, or dataset loads...
 #that do not change throughout the app
@@ -82,15 +83,16 @@ ui <- page_fillable(
         choices = sort(unique(africaLangsAndGeo$name)),
         selected = sort(unique(africaLangsAndGeo$name))[1]),
     
-      sliderInput("SpeakerNum",
+      numericInput("SpeakerNum",
       "Set Min Number of Native Speakers",
       min = min(africaLangsAndGeo$native_speakers),
       max = max(africaLangsAndGeo$native_speakers),
-      value = min(africaLangsAndGeo$native_speakers)
+      value = min(africaLangsAndGeo$native_speakers),
+      step = 100
       )),
     
     navset_card_tab(
-    nav_panel("LangCountries", p("Fill in here later"), plotOutput("AfricaLangPlot")),
+    nav_panel("LangCountries", p("Fill in here later"), girafeOutput("AfricaLangPlot")),
     nav_panel("FamCountries", p("Fill in here later"), plotOutput("AfricaFamPlot")),
     nav_panel("Langs In Country", tableOutput("LangsInCountryTable"))
     )
@@ -100,7 +102,8 @@ ui <- page_fillable(
 
 
 server <- function(input, output, session) {
-output$AfricaLangPlot <- renderPlot({
+  
+output$AfricaLangPlot <- renderGirafe({
   
   africaLangsAndGeo <- africaLangsAndGeo |> mutate(
     langSpoken = case_when(
@@ -111,9 +114,10 @@ output$AfricaLangPlot <- renderPlot({
   #arranged langSpoken because the map plots every country over and over for each language
   #in it, without the arrange, the map would plot a spoken version, and immediately
   #plot over it with a not spoken
-  africaLangsAndGeo |> arrange(langSpoken) |> ggplot() +
-  geom_sf(aes(fill = langSpoken)) +
+  langMap <- africaLangsAndGeo |> arrange(langSpoken) |> ggplot() +
+  geom_sf_interactive(aes(fill = langSpoken,tooltip = name, data_id = name)) +
   theme_void()
+  girafe(ggobj = langMap)
 })
 
 output$AfricaFamPlot <- renderPlot({
@@ -128,14 +132,19 @@ output$AfricaFamPlot <- renderPlot({
   theme_void()
 })
   
+  
+  filteredAfricaLangsAndGeo <- reactive({
+    africaLangsAndGeo |>
+    filter(native_speakers >= input$SpeakerNum)
+})
+  
 output$LangsInCountryTable <- renderTable({
-  langsInCountry <- africaLangsAndGeo |> filter(name == input$Country) |>
-    arrange(language)
+  langsInCountry <- filteredAfricaLangsAndGeo()|> 
+    filter(name == input$Country) |> arrange(language)
 
   tibble(Language = langsInCountry$language,
     LanguageFamily = langsInCountry$family,
     NativeSpeakers = langsInCountry$native_speakers)
-
 })
 
 }
