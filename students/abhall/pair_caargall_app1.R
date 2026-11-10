@@ -20,7 +20,9 @@ library(shiny)
 library(tidyverse)
 
 ui <- page_fluid(
-  titlePanel("Filtering mpg depth compared to qsec, and weight"),
+  titlePanel("Exploring MPG in the mtcars Dataset"),
+  p("Use the slider to filter cars by miles per gallon.
+    Choose whether to compare MPG with quarter-mile time or weight."),
   sidebarLayout(
     sidebarPanel(
       # syntax for slider input: sliderInput(inputId, label, min, max, value)
