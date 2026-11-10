@@ -6,8 +6,8 @@ library(bslib)
 library(usmap)
 library(scales)
 
-# Store the county population data
-county_pop <- source("load.R")
+# Store the county poverty data
+source("load.R")
 
 ui <- page_fillable(
   
@@ -18,7 +18,7 @@ ui <- page_fillable(
     card_header("Map Filters"),
     layout_columns( col_widths = c(4,4,4),
     sliderInput(
-      "Poverty",
+      "poverty",
       "Poverty Rate:",
       min = min(county_data$poverty_rate),
       max = max(county_data$poverty_rate),
@@ -43,6 +43,13 @@ ui <- page_fillable(
       "Search for a county:",
       placeholder = "Example: Marquette"
     )
+  )
+),
+  
+# Card containing the map
+  card(
+    card_header("County Poverty Map"),
+    plotOutput("map", height = "600px")
   ),
 
   # Display a summary and table beside each other
@@ -58,101 +65,105 @@ ui <- page_fillable(
       card_header("Counties With the Highest Poverty Rates"),
       tableOutput("county_table")
     )
-  ),
-  
-  # Card containing the map
-  card(
-    full_screen = TRUE,
-    card_header("County Poverty Map"),
-    plotOutput("map", height = "600px")
   )
 )
-)
+
 
 server <- function(input, output) {
   
   # Filter counties using the population slider and county search
-data <- reactive({
+filtered_counties <- reactive({
   
   # Begin with the complete county population dataset.
   # Keep counties whose 2022 population falls between the
   # minimum and maximum values selected with the slider.
-  filtered <- county_pop |>
+  filtered <- county_data |>
     filter(
-      pop_2022 >= input$pop[1],
-      pop_2022 <= input$pop[2]
+      poverty_rate >= input$poverty[1],
+      poverty_rate <= input$poverty[2]
     )
   # input$pop[1] is the lower end of the population slider.
   # input$pop[2] is the upper end of the population slider.
   
-  # Only filter by county name when the search box is not empty.
-  if (input$county != "") {
-    
-    filtered <- filtered |>
-      filter(
-        str_detect(
-          # Convert county names to lowercase so the search
-          # is not affected by capitalization.
-          str_to_lower(county),
-          # Convert the user's search to lowercase and treat
-          # it as regular text instead of a pattern.
-          fixed(str_to_lower(input$county))
-        )
-      )
-  }
+  # Apply the state filter unless all states are selected
+    if (input$state != "All") {
+      filtered <- filtered |>
+        filter(state == input$state)
+    }
   
-  # Return the filtered dataset from the reactive expression.
-  filtered
-})
 
-# Create the map and update it whenever data() changes.
-output$map <- renderPlot({
+# Remove extra spaces from the county search
+    county_search <- str_trim(input$county)
+    
+    # Apply the county search only when text is entered
+    if (county_search != "") {
+      filtered <- filtered |>
+        filter(
+          str_detect(
+            str_to_lower(county),
+            fixed(str_to_lower(county_search))
+          )
+        )
+    }
+    
+    filtered
+  })
+
+  # Show the number of counties meeting the filters
+  output$n_counties <- renderText({
+    comma(nrow(filtered_counties()))
+  })
   
-  # Check whether the filters produced at least one county.
-  validate(
-    need(
-      
-      # data() retrieves the current reactive dataset.
-      # nrow() counts how many counties remain.
-      nrow(data()) > 0,
-      
-      # Display this message if no counties match the filters.
-      "No counties match the selected filters."
-    )
-  )
-})
+  # Show the ten highest poverty rates among filtered counties
+  output$county_table <- renderTable({
+    filtered_counties() |>
+      arrange(desc(poverty_rate)) |>
+      slice_head(n = 10) |>
+      select(county, state, poverty_count, poverty_rate) |>
+      mutate(
+        poverty_count = comma(poverty_count),
+        poverty_rate = paste0(round(poverty_rate, 1), "%")
+      ) |>
+      rename(
+        "County" = county,
+        "State" = state,
+        "People in poverty" = poverty_count,
+        "Poverty rate" = poverty_rate
+      )
+  })
   
-  # Create the map
+  # Draw the map using the current filtered dataset
   output$map <- renderPlot({
     
     validate(
       need(
-        nrow(data()) > 0,
+        nrow(filtered_counties()) > 0,
         "No counties match the selected filters."
       )
     )
     
     plot_usmap(
       regions = "counties",
-      exclude = c("AK", "HI"),
-      data = data(),
-      values = "pop_2022",
+      data = filtered_counties(),
+      values = "poverty_rate",
       color = "white",
-      linewidth = 0.1 
+      linewidth = 0.1
     ) +
       scale_fill_viridis_c(
-        name = "Population",
-        transform = "log10",
-        labels = scales::label_comma(),
+        name = "Poverty rate",
+        labels = label_number(suffix = "%"),
         na.value = "gray90"
       ) +
       labs(
-        title = "United States County Population"
+        title = "County Poverty Rates in the United States",
+        subtitle = "Counties outside the selected filters appear gray",
+        caption = "Source: USDA Economic Research Service, 2023"
       ) +
       theme(
-        legend.position = "right"
+        legend.position = "right",
+        plot.title = element_text(face = "bold")
       )
   })
-}
 
+}
 shinyApp(ui = ui, server = server)
