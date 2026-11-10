@@ -1,4 +1,5 @@
 # Library
+
 library(shiny)
 library(bslib)
 library(tidyverse)
@@ -21,7 +22,7 @@ ui <- page_sidebar( # page with a sidebar for controls
   sidebar = sidebar(
     p("Select a country and year to explore temperature data"),
 
-    # Choices for Sidebar
+    # Country Selector Dropdown
     #Country 1
     selectInput(
       "country1",
@@ -35,25 +36,45 @@ ui <- page_sidebar( # page with a sidebar for controls
       "Select Second Country:",
       choices = sort(unique(temperature$country)),
       selected = "Canada"
-    )
+    ),
+
+  # Slider for selecting the year
+  sliderInput(
+    "years",
+    "Select Year Range:",
+    min = min(temperature$year),
+    max = max(temperature$year),
+    value = c(min(temperature$year), max(temperature$year)),
+    step = 1
+  )
   ),
-  # Creates hte location for the plot
+
+  # Creates the location for the plot
   plotOutput("temperature_plot")
 
 )
 
+
+
 server <- function(input,output){
   # creating my temperature plot
-  output$temperature_plot <- renderPlot({
 
-    req(input$country1, input$country2)
+    selected <- reactive({
+
+    req(input$country1, input$country2, input$years)
 
     #making sure the ggplot grabs the selected data
-    selected <- temperature |> 
-      filter(country %in% c(input$country1, input$country2))
+      temperature |> 
+      filter(
+        country %in% c(input$country1, input$country2),
+        year >= input$years[1],
+        year <= input$years[2]
+      )
+    })
 
+  output$temperature_plot <- renderPlot({
     #making the ggplot
-    ggplot(selected,
+    ggplot(selected(),
       aes(x = year, y = temperature_anomaly, color = country)) +
       geom_line() + 
       labs(
