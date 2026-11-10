@@ -51,34 +51,34 @@ ui <- page_fluid(
 
 server <- function(input, output) {
 
+  newmtcars <- mtcars |>
+    rownames_to_column(var = "name")
 
-    newmtcars <- mtcars |>
-      rownames_to_column(var = "name")
-  
-    # use plot_ly function to create 3D scatter plot
-    output$graph <- renderPlot({
-      ggplot(
-            data = filter(newmtcars, mpg >= input$mpg),
-            aes(
-            x = mpg,
-            y = get(input$yVariable))) 
-})
-
-    output$table <- renderTable({
-      
-      reactiveVal(
-      df<- filter(newmtcars, mpg >= input$mpg)|>
-        select(name, mpg, qsec, wt))
-
-
-      brushedPoints(df, input$plot_brush)
-    })
-
+ 
+  output$graph <- renderPlot({
+    ggplot(
+      data = filter(newmtcars, mpg >= input$mpg),
+      aes(
+        x = mpg,
+        y = .data[[input$yVariable]]
+      )
+    ) +
+      geom_point()
+  })
 
   
+  output$table <- renderTable({
+
+    df <- filter(newmtcars, mpg >= input$mpg) |>
+      select(name, mpg, qsec, wt)
+
+    brushedPoints(df, input$plot_brush, xvar="mpg", yvar=input$yVariable)
+
+  })
 
 }
-# Run the application 
+
+# Run the application
 shinyApp(ui = ui, server = server)
 
   
