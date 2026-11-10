@@ -5,13 +5,33 @@ installed.packages("bslib")
 installed.packages("shiny")
 installed.packages("shinyWidgets")
 installed.packages("tidyverse")
+installed.packages("janitor")
+installed.packages("scales")
 library(plotly)
 library(datasets)
 library(bslib)
 library(shiny)
 library(shinyWidgets)
 library(tidyverse)
+library(janitor)
+library(scales)
 
+
+obc <- readr::read_csv(
+  "C:/Users/jmorton/oil_by_country.csv") |>
+  janitor::clean_names()
+
+glimpse(obc)
+
+missing <- obc |>
+  summarize(across(everything(),
+      ~ sum(is.na(.x)))) |>
+  pivot_longer(
+    cols = everything(),
+    names_to = "Variable",
+    values_to = "N/A_count") 
+
+missing
 #
 ui <- page_fillable(
   titlePanel("Time-dependent Theoph Concentration"),
