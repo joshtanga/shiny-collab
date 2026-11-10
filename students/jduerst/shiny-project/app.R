@@ -93,7 +93,7 @@ ui <- page_fillable(
     
     navset_card_tab(
     nav_panel("LangCountries", p("Fill in here later"), girafeOutput("AfricaLangPlot")),
-    nav_panel("FamCountries", p("Fill in here later"), plotOutput("AfricaFamPlot")),
+    nav_panel("FamCountries", p("Fill in here later"), girafeOutput("AfricaFamPlot")),
     nav_panel("Langs In Country", tableOutput("LangsInCountryTable"))
     )
   )
@@ -120,16 +120,17 @@ output$AfricaLangPlot <- renderGirafe({
   girafe(ggobj = langMap)
 })
 
-output$AfricaFamPlot <- renderPlot({
+output$AfricaFamPlot <- renderGirafe({
   
   africaLangsAndGeo <- africaLangsAndGeo |> mutate(
     famSpoken = case_when(
       family == input$Family ~ "Spoken",
       TRUE ~ "Not Spoken")
   )
-  africaLangsAndGeo |> arrange(famSpoken) |> ggplot() +
-  geom_sf(aes(fill = famSpoken)) +
+  famMap <- africaLangsAndGeo |> arrange(famSpoken) |> ggplot() +
+  geom_sf_interactive(aes(fill = famSpoken,tooltip = name, data_id = name)) +
   theme_void()
+girafe(ggobj = famMap)
 })
   
   
