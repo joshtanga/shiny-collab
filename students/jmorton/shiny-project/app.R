@@ -1,6 +1,5 @@
 # Shiny app
 installed.packages("plotly")
-installed.packages("datasets")
 installed.packages("bslib")
 installed.packages("shiny")
 installed.packages("shinyWidgets")
@@ -8,7 +7,6 @@ installed.packages("tidyverse")
 installed.packages("janitor")
 installed.packages("scales")
 library(plotly)
-library(datasets)
 library(bslib)
 library(shiny)
 library(shinyWidgets)
@@ -17,13 +15,13 @@ library(janitor)
 library(scales)
 
 
-obc <- readr::read_csv(
-  "C:/Users/jmorton/oil_by_country.csv") |>
+Stroke <- readr::read_csv(
+  "C:/Users/jmorton/shiny-collab/students/jmorton/data/healthcare-dataset-stroke-data.csv") |>
   janitor::clean_names()
 
-glimpse(obc)
+glimpse(Stroke)
 
-missing <- obc |>
+missing <- Stroke |>
   summarize(across(everything(),
       ~ sum(is.na(.x)))) |>
   pivot_longer(
@@ -32,6 +30,12 @@ missing <- obc |>
     values_to = "N/A_count") 
 
 missing
+
+Stroke_clean <- Stroke |>
+  tidyr::drop_na()
+
+view(Stroke_clean)
+
 #
 ui <- page_fillable(
   titlePanel("Time-dependent Theoph Concentration"),
