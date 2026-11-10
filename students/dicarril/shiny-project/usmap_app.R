@@ -24,7 +24,8 @@ ui <- page_fillable(
       "
     )
   ),
-  
+
+
 layout_columns(
   col_widths = c(3,9),
   # Dividing the page in half
