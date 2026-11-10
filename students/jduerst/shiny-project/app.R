@@ -83,18 +83,26 @@ ui <- page_fillable(
         choices = sort(unique(africaLangsAndGeo$name)),
         selected = sort(unique(africaLangsAndGeo$name))[1]),
     
-      numericInput("SpeakerNum",
+      numericInput("SpeakerNumMin",
       "Set Min Number of Native Speakers",
       min = min(africaLangsAndGeo$native_speakers),
       max = max(africaLangsAndGeo$native_speakers),
       value = min(africaLangsAndGeo$native_speakers),
-      step = 100
-      )),
+      step = 100),
+
+      numericInput("SpeakerNumMax",
+      "Set Max Number of Native Speakers",
+      min = min(africaLangsAndGeo$native_speakers),
+      max = max(africaLangsAndGeo$native_speakers),
+      value = max(africaLangsAndGeo$native_speakers),
+      step = 100)
+      ),
     
     navset_card_tab(
     nav_panel("LangCountries", p("Fill in here later"), girafeOutput("AfricaLangPlot")),
     nav_panel("FamCountries", p("Fill in here later"), girafeOutput("AfricaFamPlot")),
-    nav_panel("Langs In Country", tableOutput("LangsInCountryTable"))
+    nav_panel("Langs In Country", tableOutput("LangsInCountryTable")),
+    nav_panel("Native Speakers of Languages by Language Family", girafeOutput("NativeSpeakerPlot"))
     )
   )
 )
@@ -115,7 +123,7 @@ output$AfricaLangPlot <- renderGirafe({
   #in it, without the arrange, the map would plot a spoken version, and immediately
   #plot over it with a not spoken
   langMap <- africaLangsAndGeo |> arrange(langSpoken) |> ggplot() +
-  geom_sf_interactive(aes(fill = langSpoken,tooltip = name, data_id = name)) +
+  geom_sf_interactive(aes(fill = langSpoken,tooltip = name,data_id=name)) +
   theme_void()
   girafe(ggobj = langMap)
 })
@@ -128,7 +136,7 @@ output$AfricaFamPlot <- renderGirafe({
       TRUE ~ "Not Spoken")
   )
   famMap <- africaLangsAndGeo |> arrange(famSpoken) |> ggplot() +
-  geom_sf_interactive(aes(fill = famSpoken,tooltip = name, data_id = name)) +
+  geom_sf_interactive(aes(fill = famSpoken,tooltip = name,data_id=name)) +
   theme_void()
 girafe(ggobj = famMap)
 })
@@ -136,7 +144,8 @@ girafe(ggobj = famMap)
   
   filteredAfricaLangsAndGeo <- reactive({
     africaLangsAndGeo |>
-    filter(native_speakers >= input$SpeakerNum)
+    filter(native_speakers >= input$SpeakerNumMin &
+      native_speakers <= input$SpeakerNumMax)
 })
   
 output$LangsInCountryTable <- renderTable({
@@ -144,8 +153,19 @@ output$LangsInCountryTable <- renderTable({
     filter(name == input$Country) |> arrange(language)
 
   tibble(Language = langsInCountry$language,
-    LanguageFamily = langsInCountry$family,
-    NativeSpeakers = langsInCountry$native_speakers)
+    Language_Family = langsInCountry$family,
+    Native_Speakers = langsInCountry$native_speakers)
+})
+  
+output$NativeSpeakerPlot <- renderGirafe({
+  nativeSpeakPlot <- filteredAfricaLangsAndGeo()|>
+    filter(language != "No Language Data") |>
+    ggplot(aes(y=family,x=native_speakers)) +
+    geom_point_interactive(aes(tooltip=language,data_id=language)) +
+    scale_x_continuous(labels = comma)
+
+  girafe(ggobj = nativeSpeakPlot)
+
 })
 
 }
