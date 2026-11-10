@@ -5,7 +5,6 @@ library(tidyverse)
 library(bslib)
 library(usmap)
 library(scales)
-library(shinythemes)
 
 # Store the county poverty data
 source("load.R")
@@ -109,8 +108,8 @@ filtered_counties <- reactive({
       poverty_rate >= input$poverty[1],
       poverty_rate <= input$poverty[2]
     )
-  # input$poverty[1] is the lower end of the population slider.
-  # input$poverty[2] is the upper end of the population slider.
+  # input$poverty[1] is the lower end of the poverty slider.
+  # input$poverty[2] is the upper end of the popverty slider.
   
   # Apply the state filter unless all states are selected
     if (input$state != "All") {

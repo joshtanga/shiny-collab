@@ -20,7 +20,7 @@ How do poverty rates vary among counties across the United States? This app allo
 - **Outputs:** A county map displays poverty rates geographically, a table lists the ten highest-poverty counties among the filtered results, and two value boxes report the number of counties shown and their average poverty rate.
 
 ## One thing I learned
-I learned how to use str_trim(), and str_detect() to prevent the county search bar from thowing errors if a typo or extra space is present. I also learned how to use validate() and need() together to give clean error messeage when an input is invaild instead of creashing the app. 
+I learned how to use `str_trim()` to remove extra spaces from search terms and `str_detect()` to search for partial county names without requiring an exact match. I also learned how to use `validate()` and `need()` to display a clear message when no counties match the selected filters instead of leaving the user with an empty output.
 
 ## Limitations
 The data describe counties during 2023 and do not show how poverty rates have changed over time. County-level values are aggregated estimates, so they do not describe every person within a county. The app also shows geographic patterns and descriptive comparisons but cannot explain what caused the differences in poverty rates.
