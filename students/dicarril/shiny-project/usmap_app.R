@@ -14,7 +14,7 @@ ui <- page_fillable(
   title = "United States County Poverty",
   
 layout_columns(
-  col_widths = c(8,4)
+  col_widths = c(3,9),
   # Dividing the page in half
   div(
   # Card containing the two filters
@@ -52,6 +52,11 @@ layout_columns(
     value_box(
       title = "Counties shown",
       value = textOutput("n_counties")
+    ),
+
+    value_box(
+      title = "Average poverty rate",
+      value = textOutput("avg_poverty")
     )
 
 
@@ -118,6 +123,22 @@ filtered_counties <- reactive({
     
     filtered
   })
+
+  # Show the average poverty rate among selected counties
+output$avg_poverty <- renderText({
+  
+  validate(
+    need(
+      nrow(filtered_counties()) > 0,
+      "No data"
+    )
+  )
+  
+  paste0(
+    round(mean(filtered_counties()$poverty_rate), 1),
+    "%"
+  )
+})
 
   # Show the number of counties meeting the filters
   output$n_counties <- renderText({
