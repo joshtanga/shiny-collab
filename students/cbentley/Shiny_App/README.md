@@ -1,6 +1,6 @@
-# <Your App's Title>
+# Comparing daily physical activity, sleep duration, and sleep quality
 
-**Author:** <your name>
+**Author:** Caity Bentley
 
 ## The question
 <One or two sentences: what can someone explore with this app?>
