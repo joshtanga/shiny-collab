@@ -1,4 +1,4 @@
-# loading shiny and getting started with basics
+# US County Poverty Explorer
 
 library(shiny)
 library(tidyverse)
