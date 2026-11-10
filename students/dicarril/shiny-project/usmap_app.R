@@ -17,20 +17,20 @@ layout_columns(
   col_widths = c(3,9),
   # Dividing the page in half
   div(
-  # Card containing the two filters
+  # Card containing the filters
     card(
       card_header("Map Filters"),
-      sliderInput(
-        "poverty",
-        "Poverty Rate:",
-        min = min(county_data$poverty_rate),
-        max = max(county_data$poverty_rate),
-        value = range(county_data$poverty_rate),
-        step = 0.5, 
-        post = "%"
-      ),
+        sliderInput(
+          "poverty",
+          "Poverty Rate:",
+          min = min(county_data$poverty_rate),
+          max = max(county_data$poverty_rate),
+          value = range(county_data$poverty_rate),
+          step = 3, 
+          post = "%"
+        ),
 
-    # Filter counties by state
+      # Filter counties by state
       selectInput(
         "state",
         "Select a state:",
@@ -40,47 +40,46 @@ layout_columns(
         ),
         selected = "All"
       ),
-    
+
+      # County search bar
       textInput(
         "county",
         "Search for a county:",
         placeholder = "Example: Marquette"
       ),
 
-    br(),
-
-    value_box(
-      title = "Counties shown",
-      value = textOutput("n_counties")
-    ),
-
-    value_box(
-      title = "Average poverty rate",
-      value = textOutput("avg_poverty")
+      br(),
+    
+      # Total number of counties being displayed
+      value_box(
+        title = "Counties shown",
+        value = textOutput("n_counties")
+      ),
+      # Average poverty rate for the current filter
+      value_box(
+        title = "Average poverty rate",
+        value = textOutput("avg_poverty")
+      )
     )
-
-
-  )
-),
+  ),
   
 
-# Creating the other half of the page
-div(
-# Card containing the map
-  card(
-    card_header("County Poverty Map"),
-    plotOutput("map", height = "600px")
-  ),
-
-  br(),
-  # Display a summary and table beside each other
-    
+  # Creating the other half of the page
+  div(
+  # Card containing the map
     card(
-      card_header("Counties With the Highest Poverty Rates"),
+      card_header("County Poverty Map"),
+      plotOutput("map", height = "600px")
+    ),
+
+    br(),
+    # Display summary table under map
+    card(
+      card_header("Ten Counties With the Highest Poverty Rates"),
       tableOutput("county_table")
     )
-)
-)
+   )
+  )
 )
 
 
