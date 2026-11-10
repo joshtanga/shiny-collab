@@ -189,7 +189,7 @@ output$avg_poverty <- renderText({
       regions = "counties",
       data = filtered_counties(),
       values = "poverty_rate",
-      color = "white",
+      color = "grey90",
       linewidth = 0.1
     ) +
       scale_fill_viridis_c(
