@@ -99,10 +99,18 @@ ui <- page_fillable(
       ),
     
     navset_card_tab(
-    nav_panel("LangCountries", p("Fill in here later"), girafeOutput("AfricaLangPlot")),
-    nav_panel("FamCountries", p("Fill in here later"), girafeOutput("AfricaFamPlot")),
-    nav_panel("Langs In Country", tableOutput("LangsInCountryTable")),
-    nav_panel("Native Speakers of Languages by Language Family", girafeOutput("NativeSpeakerPlot"))
+    nav_panel("Language Map",
+      p("Choose a language to show what countries that language is spoken in."),
+      girafeOutput("AfricaLangPlot")),
+    nav_panel("Language Family Map",
+      p("Choose a language family to show what countries that language family is spoken in."),
+      girafeOutput("AfricaFamPlot")),
+    nav_panel("Country's Languages Table",
+      p("Choose a country, and adjust the min and max of numbers of native speakers to see what languages are spoken in that country within the native speaker range."),
+      tableOutput("LangsInCountryTable")),
+    nav_panel("Native Speakers Plot",
+      p("Adjust the min and max of numbers of native speakers to see what languages have a number of native speakers in that range."),
+      girafeOutput("NativeSpeakerPlot"))
     )
   )
 )
@@ -124,7 +132,10 @@ output$AfricaLangPlot <- renderGirafe({
   #plot over it with a not spoken
   langMap <- africaLangsAndGeo |> arrange(langSpoken) |> ggplot() +
   geom_sf_interactive(aes(fill = langSpoken,tooltip = name,data_id=name)) +
-  theme_void()
+  theme_void()+
+  labs(fill=input$Language, 
+    title = paste("Where is", input$Language, "spoken in Africa?"))
+  
   girafe(ggobj = langMap)
 })
 
@@ -137,7 +148,9 @@ output$AfricaFamPlot <- renderGirafe({
   )
   famMap <- africaLangsAndGeo |> arrange(famSpoken) |> ggplot() +
   geom_sf_interactive(aes(fill = famSpoken,tooltip = name,data_id=name)) +
-  theme_void()
+  theme_void() +
+  labs(fill=input$Family,
+  title = paste("Where is the", input$Family, "language family spoken in Africa?"))
 girafe(ggobj = famMap)
 })
   
@@ -160,9 +173,13 @@ output$LangsInCountryTable <- renderTable({
 output$NativeSpeakerPlot <- renderGirafe({
   nativeSpeakPlot <- filteredAfricaLangsAndGeo()|>
     filter(language != "No Language Data") |>
-    ggplot(aes(y=family,x=native_speakers)) +
+    ggplot(aes(y=family,x=native_speakers,color = family)) +
     geom_point_interactive(aes(tooltip=language,data_id=language)) +
-    scale_x_continuous(labels = comma)
+    scale_x_continuous(labels = comma) +
+    scale_color_viridis_d(option = "turbo") +
+    theme(legend.position = "none") +
+    labs(x="Number of Native Speakers", y="Language Family",
+      title="Native Speakers of Languages by Language Family")
 
   girafe(ggobj = nativeSpeakPlot)
 
