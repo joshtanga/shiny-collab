@@ -1,4 +1,5 @@
 # Stroke Prediction App
+This app predicts the probability of having a stroke based on the modeled dataset from Kaggle and the new patients information.
 
 **Author:** Jett Morton
 
@@ -28,7 +29,7 @@ How do patient characteristics, such as gender, age, hypertension, heart disease
 - Smoking Status: select a smoking category.
 
 - **Outputs:** 
-- Predicted Stroke Probability: Shows the estimated probability based on the patients information.
+- Predicted Stroke Probability: Shows the estimated probability of stroke based on the patients information.
 
 ## One thing I learned
 For this dataset, gender appears to have a weaker correlation to risk of stroke than the other variables modeled.
