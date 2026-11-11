@@ -102,7 +102,7 @@ ui <- page_fillable(
         selectInput(
           "fall",
           "Meteorite Type",
-          choices = c("All", "Fell(Meteorite fall observed)", "Found(Meteorite fall not observed)"),
+          choices = c("All" = "All", "Fell(Meteorite fall observed)" = "Fell", "Found(Meteorite fall not observed)" = "Found"),
           selected = "All"
         )
       ),
@@ -165,7 +165,7 @@ server <- function(input, output) {
   cur <- meteorFilter() |>
     st_drop_geometry()
 
-  worldTotal <- nrow(cur)
+  worldTotal <- 31929
 
   if (is.null(selected())) {
     countryName <- "Worldwide"
@@ -174,9 +174,6 @@ server <- function(input, output) {
     cur <- cur |>
       filter(country == selected()$name)
 
-    if (nrow(cur) == 0) {
-      return(NULL)
-    }
     countryName <- first(cur$country)
   }
   largest <- cur |>
