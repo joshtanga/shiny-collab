@@ -82,14 +82,14 @@ layout_columns(
   div(
   # Card containing the map
     card(
-      card_header("County Poverty Map"),
+      card_header("County Poverty Map, 2023"),
       plotOutput("map", height = "600px")
     ),
 
     br(),
     # Display summary table under map
     card(
-      card_header("Top Ten Counties With the Highest Poverty Rates"),
+      card_header("Top Ten Counties With the Highest Poverty Rates in 2023"),
       tableOutput("county_table")
     )
    )
