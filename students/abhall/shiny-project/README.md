@@ -6,7 +6,7 @@
 How is daily social media use related to the productivty among workers? 
 
 ## The data
-- **Source:** Social Media vs. Productivty by Mahdi Mashayekhi (data/social_media_vs_productivity.csv)
+- **Source:** Social Media vs. Productivty by Mahdi Mashayekhi (https://www.kaggle.com/datasets/mahdimashayekhi/social-media-vs-productivity/data)
 - **One row is:** One worker's data
 - **Variables I use:** 
 -  job_type
