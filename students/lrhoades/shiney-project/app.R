@@ -59,6 +59,10 @@ ui <- page_sidebar(
   ),
   
   h3("Top Video Game Publishers By Global Sales"),
+  
+  p("Explore video game publisher sales using the filters on the left"),
+
+  p("Sales are measured in millions of copies. The graphs and table update based on your selected filters."),
 
   plotOutput("publisher_plot", height = "500px"),
 
@@ -99,6 +103,9 @@ server <- function(input, output){
 
   output$publisher_plot <- renderPlot({
 
+    validate(need(nrow(filtered_games()) > 0,
+      "No games found for these filters. Try another selection."))
+    
     filtered_games() |>
       group_by(publisher) |>
       summarise(total_sales = sum(global_sales), .groups = "drop") |>
@@ -117,6 +124,9 @@ server <- function(input, output){
 
   output$year_plot <- renderPlot({
 
+    validate(need(nrow(filtered_games()) > 0,
+      "No games found for these filters. Try another selection."))
+    
     filtered_games() |>
       group_by(year_of_release) |>
       summarise(total_sales = sum(global_sales), .groups = "drop") |>
@@ -133,6 +143,10 @@ server <- function(input, output){
   })
 
   output$regional_table <- renderTable({
+
+    validate(need(nrow(filtered_games()) > 0,
+      "No games found for these filters. Try another selection."))
+    
     filtered_games() |>
       group_by(publisher) |>
       summarise(
