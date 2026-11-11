@@ -102,24 +102,32 @@ filtered_data <- reactive({
 
 })
 
+
 output$scatter_plot <- renderPlot({
+  df <- filtered_data()
 
   ggplot(
-    filtered_data(),
+    df,
     aes(
       x = daily_social_media_time,
       y = actual_productivity_score
     )
   ) +
-    geom_point() +
+    geom_jitter(
+      width = 0.05,
+      height = 0,
+      alpha = 0.25,
+      size = 1
+    ) +
     labs(
       title = "Daily Social Media Use vs. Actual Productivity",
+      subtitle = "Points are slightly spread horizontally to show overlapping observations",
       x = "Daily Social Media Use (Hours)",
       y = "Actual Productivity Score"
     ) +
     theme_minimal()
-
 })
+
  
 
 }
