@@ -113,13 +113,11 @@ server <- function(input, output, session) {
       theme_minimal(base_size = 14)
   })
 
-  # Shared reactive #1: games in the selected genres
   genre_data <- reactive({
     req(input$genres)
     df |> filter(genre %in% input$genres)
   })
 
-  # Shared reactive #2: selected genres, filtered by the selected year
   year_data <- reactive({
     d <- genre_data()
     if (input$year != "All years") {
@@ -132,7 +130,7 @@ server <- function(input, output, session) {
     paste0(format(round(x, 1), nsmall = 1, big.mark = ","), "M")
   }
 
-  # Builds the content of one region box: one line per selected genre
+  # Makes the content in the regions boxes
   region_box <- function(col) {
     d <- year_data()
     div(
@@ -149,7 +147,7 @@ server <- function(input, output, session) {
   output$jp_box    <- renderUI(region_box("jp_sales"))
   output$other_box <- renderUI(region_box("other_sales"))
 
-  # One panel per region, one line per genre, across all years
+  # One panel per region with all three genres
   output$region_genre_plot <- renderPlot({
     genre_data() |>
       pivot_longer(
