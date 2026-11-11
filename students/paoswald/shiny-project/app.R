@@ -8,9 +8,10 @@ library(janitor)
 temperature <- read_csv("annual-temperaturenew.csv") |>
   clean_names() |>
   rename(country = countey)
-# looked for na values and found none.
-# did a glimpse(temperature) to check variables
-# renamed country 
+# checking the column types
+glimpse(temperature)
+# checking for na values
+print(colSums((is.na(temperature))))
 
 ui <- page_sidebar( # page with a sidebar for controls
   fillable = FALSE,
