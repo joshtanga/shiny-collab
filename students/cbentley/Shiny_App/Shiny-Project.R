@@ -1,10 +1,8 @@
 # App: Shiny_Project
 # Author: Caity Bentley
 # Kaggle Data: Modern Lifestyle & Sleep Health Metrics (Maria Aqdas 2026)
-# *Dataset from Mini Project 2
 
 library(tidyverse)
-library(scales)
 library(shiny)
 library(bslib)
 library(plotly)
@@ -21,7 +19,7 @@ sleep_raw <- readr::read_csv('modern_lifestyle_and_sleep_health_2026.csv')
 
 ## Select only columns I need
 sleep <- sleep_raw |> select(physical_activity_mins, sleep_duration_hours, 
-  sleep_quality_score)
+  sleep_quality_score) |> drop_na()
 
 ## Categorize data
 sleep <- sleep |> 
@@ -34,8 +32,9 @@ sleep <- sleep |>
     )
   )
 
+# UI
 ui <- page_sidebar(
-  title = "Comparing Physical Activity and Sleep Duration",
+  title = "Analyzing Sleep Duration of Three Daily Levels of Physical Activity",
   
   sidebar = sidebar(
     selectInput(
@@ -47,6 +46,7 @@ ui <- page_sidebar(
         "High" = "High (60+ min)"
       )
     ),
+
     sliderInput(
       inputId = "sleep_duration_hours", 
       label = "Set sleep duration (hours)", 
@@ -55,9 +55,10 @@ ui <- page_sidebar(
       value = c(3.60, 9.70), 
       step = 0.1
     ),
+
     checkboxInput("show_trend", "Show trend line", value = TRUE),
     hr(),
-    # You can also keep your value boxes neatly stacked in the sidebar:
+
     layout_columns(
       value_box(title = "People in selection", value = textOutput("n_people")),
       value_box(title = "Average sleep (hours)", value = textOutput("avg_sleep")),
@@ -69,9 +70,10 @@ ui <- page_sidebar(
   layout_columns(
     col_widths = c(6, 6),
     card(
-    card_header("Activity and Sleep Plot"),
+    card_header("Daily Sleep Duration vs Physical Activity Plot"),
     plotlyOutput("graph")
   ),
+
   navset_card_tab(
       id = "tabs", 
       nav_panel(
@@ -79,25 +81,35 @@ ui <- page_sidebar(
         value = "Low (<30 min)", 
         tableOutput("table_low")
       ),
-      nav_panel(
+
+  nav_panel(
         title = "Medium", 
         value = "Medium (30-59 min)", 
         tableOutput("table_medium")
       ),
-      nav_panel(
+
+  nav_panel(
         title = "High", 
         value = "High (60+ min)", 
         tableOutput("table_high")
       )
     )
-)
+  )
 )
   
 
 
 
-
+# Server
 server <- function(input, output, session) {
+filtered <- reactive({
+ sleep |>
+      filter(activity_level == input$activity,
+      between(sleep_duration_hours,
+              input$sleep_duration_hours[1],
+              input$sleep_duration_hours[2]))
+})
+  
 observeEvent(input$activity, {
     nav_select("tabs", selected = input$activity)
   })
@@ -106,29 +118,20 @@ output$n_people    <- renderText(format(nrow(filtered()), big.mark = ","))
 output$avg_sleep   <- renderText(round(mean(filtered()$sleep_duration_hours), 2))
 output$avg_quality <- renderText(round(mean(filtered()$sleep_quality_score), 2))
 
-  # tabs -> dropdown
-  observeEvent(input$tabs, {
-    updateSelectInput(session, "activity", selected = input$tabs)
+
+observeEvent(input$tabs, {
+  updateSelectInput(session, "activity", selected = input$tabs)
   })
 
-filtered <- reactive({
- sleep |>
-      filter(activity_level == input$activity,
-      between(sleep_duration_hours,
-              input$sleep_duration_hours[1],
-              input$sleep_duration_hours[2]))
-})
-
   output$graph <- renderPlotly({
-    p<- plot_ly(filtered(),
+    p <- plot_ly(filtered(),
             x = ~physical_activity_mins,
             y = ~sleep_duration_hours,
-            color = ~activity_level,
             type = "scatter",
             mode = "markers") |>
       layout(
         xaxis = list(title = "Physical Activity Minutes"),
-        yaxis = list(title = "Sleep Duration")
+        yaxis = list(title = "Sleep Duration (Hours)")
       )
 
   if (input$show_trend && nrow(filtered()) > 1) {
@@ -146,16 +149,19 @@ filtered <- reactive({
 
   output$table_low <- renderTable({
     filtered() |> filter(activity_level == "Low (<30 min)") |> head(50)
-  })
+  }, caption = "Table showing low physical activity (<30 min)",
+   caption.placement = "top")
     
 
    output$table_medium <- renderTable({
     filtered() |> filter(activity_level == "Medium (30-59 min)") |> head(50)
-   })
+   }, caption = "Table showing medium physical activity (30-59 min)",
+   caption.placement = "top")
 
     output$table_high <- renderTable({
     filtered() |> filter(activity_level == "High (60+ min)") |> head(50)
-  })
+  }, caption = "Table showing high physical activity (60+ min)",
+   caption.placement = "top")
   
 }
 
