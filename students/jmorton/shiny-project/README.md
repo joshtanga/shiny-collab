@@ -3,7 +3,7 @@
 **Author:** Jett Morton
 
 ## The question
-How do patient characteristics, such as gender, age, hypertension, heart disease, glucose level, body mass index (BMI), and smoking status, relate to the likelihood of stroke?
+How do patient characteristics, such as gender, age, hypertension, heart disease, blood glucose level, body mass index (BMI), and smoking status, relate to the risk of stroke?
 
 ## The data
 - **Source:** [Stroke Prediction Dataset - Kaggle](https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset)
