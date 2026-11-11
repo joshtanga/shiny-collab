@@ -12,7 +12,7 @@ Where are most meteorites found? What is the biggest meteorite found in that are
 - **Cleaning:** I filtered so the year had to be between 860 and 2016, because the data page said that any date before or after that was incorrect. I also filtered out some lattitudes and longitudes that I was advised to do because they were inaccurate.
 
 ## How to run it
-1. Install the packages: `install.packages(c("shiny", "bslib", "tidyverse","dplyr", "sf", "rnaturalearth","scales"))`
+1. Install the packages: `install.packages(c("shiny", "bslib", "tidyverse","dplyr", "sf", "rnaturalearth","rnaturalearthdata", "scales"))`
 2. Open `app.R` in Positron and click **Run App**.
 
 ## What the app does
