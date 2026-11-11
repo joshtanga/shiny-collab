@@ -6,7 +6,7 @@
 How is daily social media use related to the productivty among workers? 
 
 ## The data
-- **Source:** Social Media vs. Productivty (<link>)
+- **Source:** Social Media vs. Productivty by Mahdi Mashayekhi (data/social_media_vs_productivity.csv)
 - **One row is:** One worker's data
 - **Variables I use:** 
 -  job_type
@@ -46,5 +46,5 @@ One thing I leanred from this project is that spending more time on social media
 ## Limitations
 This data set has limitations as other factors can influence productivity rather than social media. Also this can not be generalized to the public as it is just one sample. The social media groups are also based on hourly cutoffs that I determined, changing these may affect the data.
 
-![screenshot of my app](screenshot.png)
+![app_screenshot.png](app_screenshot.png)
 
