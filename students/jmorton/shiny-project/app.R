@@ -72,7 +72,7 @@ ui <- page_fillable(
     col_widths = c(6, 6),
     h4("Patient Information"),
 
-    # Inputs
+    # Inputs for patient info
     selectInput(
       "gender",
       "Gender",
@@ -115,7 +115,7 @@ ui <- page_fillable(
       max = 100,
       value = 50)),
 
-  # Outputs
+  # Output for stroke prediction
   h4("Predicted Stroke Probability"),
 
   uiOutput("probability_box"),
@@ -126,33 +126,45 @@ ui <- page_fillable(
 # Server
 server <- function(input, output, session) {
 
+# Stroke probability output reacts to patient info input
   stroke_probability <- reactive({
 
+    # Creates a data frame containing patient's new data
     patient <- data.frame(
       gender = factor(
         input$gender,
-        levels = levels(stroke$gender)
-      ),
+        levels = levels(stroke$gender)),
+
       age = input$age,
       hypertension = factor(
         input$hypertension,
-        levels = levels(stroke$hypertension)
-      ),
+        levels = levels(stroke$hypertension)), 
+
       heart_disease = factor(
         input$heart_disease,
-        levels = levels(stroke$heart_disease)
-      ),
+        levels = levels(stroke$heart_disease)),
+
       avg_glucose_level = input$glucose,
       bmi = input$bmi,
       smoking_status = factor(
         input$smoking_status,
         levels = levels(stroke$smoking_status)))
 
+    # Uses model to make a prediction of the stroke probability based on patients new data frame
     predict(
       stroke_model,
       newdata = patient,
-      type = "response")})}
+      type = "response")})
 
+  # Outputs a box containing stroke prediction as a percent
+  output$probability_box <- renderUI({
+
+    probability <- stroke_probability() * 100
+
+    value_box(
+      title = "Estimated Stroke Probability",
+      value = paste0(round(probability, 2), "%"),
+      theme = "primary")})}
 
 # Run the application
 shinyApp(ui = ui, server = server)
