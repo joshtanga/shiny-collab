@@ -1,5 +1,4 @@
 # Library
-
 library(shiny)
 library(bslib)
 library(tidyverse)
@@ -14,10 +13,9 @@ temperature <- read_csv("annual-temperaturenew.csv") |>
 # renamed country 
 
 ui <- page_sidebar( # page with a sidebar for controls
-
+  fillable = FALSE,
 
   # Side Bar
-  
   title = "Global Temperature Explorer",
   sidebar = sidebar(
     p("Select a country and year to explore temperature data"),
@@ -49,18 +47,20 @@ ui <- page_sidebar( # page with a sidebar for controls
   )
   ),
 
-  # Creates the location for the plot
-  plotOutput("temperature_plot")
+  # Creates the location for the plot, stats table, and data preview
+  plotOutput("temperature_plot", width = "100%", height = "600px"),
+  h3("Summary Statistics"),
+  tableOutput("summary_stats"),
+  h3("Temperature Data Preview"),
+  tableOutput("data_prev")
 
 )
 
 
 
 server <- function(input,output){
-  # creating my temperature plot
-
+  # Selecting data to be used, making it required to create the graph
     selected <- reactive({
-
     req(input$country1, input$country2, input$years)
 
     #making sure the ggplot grabs the selected data
@@ -82,12 +82,28 @@ server <- function(input,output){
         x = "Year",
         y = "Temperature Anomaly (°C)"
       ) +
-      theme_minimal()
+      theme_minimal() +
+      theme(plot.margin = margin(5, 5, 5, 5))
 
 
+  }, execOnResize = TRUE)
+
+  # Summary Statistics table
+  output$summary_stats <- renderTable({
+    selected() |>
+      group_by(country) |>
+      summarise(
+        Average = mean(temperature_anomaly),
+        Minimum = min(temperature_anomaly),
+        Maximum = max(temperature_anomaly)
+      )
+  })
+
+  # Data Preview
+  output$data_prev <- renderTable({
+    head(selected(), 10)
   })
 
 }
-
 # Run the application 
 shinyApp(ui = ui, server = server)
