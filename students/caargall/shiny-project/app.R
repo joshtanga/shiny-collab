@@ -89,7 +89,8 @@ ui <- page_fillable(
           "Year Range",
           min = 860,
           max = 2016,
-          value = c(860, 2016)
+          value = c(860, 2016),
+          sep = ""
         ),
 
         selectInput(
