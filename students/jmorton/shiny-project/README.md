@@ -25,6 +25,9 @@ How do patient characteristics, such as gender, age, hypertension, heart disease
 <Something you discovered by using your own app.>
 
 ## Limitations
-<What the data or the app can't tell you.>
+- In the dataset there are more patients without strokes than patients with strokes.
+- The predictions are not clinically validated and should not be used to make medical decisions.
+- Missing information may affect stroke outcomes.
+
 
 ![screenshot of my app](screenshot.png)

@@ -64,57 +64,44 @@ stroke_model <- glm(
   data = stroke,
   family = binomial)
 
-
-#
+# User interface
 ui <- page_fillable(
-  titlePanel("Time-dependent Theoph Concentration"),
+  titlePanel("Stroke Prediction App"),
 
-  # Top row: two shorter cards
-  layout_columns(
+   layout_columns(
     col_widths = c(6, 6),
+    h4("Patient Information")))
 
-    card(
-  height = "150px",
-  sliderTextInput(
-    inputId = "Subject",
-    label = "Choose Subject",
-    choices = as.character(unique(Theoph$Subject)),
-    selected = "1")),
+# Server
+server <- function(input, output, session) {
 
-    card(
-      height = "150px",
-      card_body(
-        p("Theoph")
-      )
-    )
-  ),
+  stroke_probability <- reactive({
 
-  # Bottom row: full-width, taller graph
-  card(
-    height = "576px",
-    width = "100%",
-    card_body(
-      plotlyOutput(
-        "graph",
-        width = "100%",
-        height = "500px")))
-      )
-  
-# 
-server <- function(input, output) {
-  output$graph <- renderPlotly({   
-    fig <- plot_ly(
-      filter(Theoph,
-      Subject == input$Subject), 
-       x = ~Time,
-       y = ~conc,
-       color = ~Subject)
-    fig <- fig |> add_markers()
-    fig <- fig |> add_lines()
-    fig <- fig |> layout(title = 'Time-dependent Theoph Concentration', 
-    xaxis = list(title = 'Time (hr)'),
-    yaxis = list(title = 'Concentration'))
-  })} 
+    patient <- data.frame(
+      gender = factor(
+        input$gender,
+        levels = levels(stroke_data$gender)
+      ),
+      age = input$age,
+      hypertension = factor(
+        input$hypertension,
+        levels = levels(stroke_data$hypertension)
+      ),
+      heart_disease = factor(
+        input$heart_disease,
+        levels = levels(stroke_data$heart_disease)
+      ),
+      avg_glucose_level = input$glucose,
+      bmi = input$bmi,
+      smoking_status = factor(
+        input$smoking_status,
+        levels = levels(stroke_data$smoking_status)))
 
-# 
+    predict(
+      stroke_model,
+      newdata = patient,
+      type = "response")})}
+
+
+# Run the application
 shinyApp(ui = ui, server = server)
