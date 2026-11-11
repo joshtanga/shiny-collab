@@ -13,7 +13,6 @@ library(sf)
 library(scales)
 library(ggiraph)
 
-#this zone can be used for computations, or dataset loads...
 #that do not change throughout the app
 
 #------------Data-------------
@@ -52,10 +51,12 @@ africaGeometry <- africaGeometry |> mutate(name = case_when(
     TRUE ~ name 
   ))
 
-
+#combine the dataset into one --used merge because the country column has different names in the two
+#needed to make sure africaGeometry was first in order to keep the geometry for the countries because
+#it breaks otherwise
 africaLangsAndGeo <- merge(africaGeometry, languagesOfAfrica, 
   by.y = "country", by.x= "name", all = TRUE)|>
-replace_na(list(
+replace_na(list( #cleaning missing values
     language = "No Language Data", family = "No Language Data", native_speakers = 0))
 
 
@@ -66,7 +67,7 @@ ui <- page_fillable(
     sidebar = sidebar(
       h1("Languages of Africa"),
       
-      p("From TidyTuesday 2026-01-13"),
+      p("Data from TidyTuesday 2026-01-13. They found the data from the Languages of Africa Wiki page. "),
       
       selectInput("Language",
         "Choose Language",
@@ -98,6 +99,7 @@ ui <- page_fillable(
       step = 100)
       ),
     
+      #The maps, table, and plot were too small, so this was the best option
     navset_card_tab(
     nav_panel("Language Map",
       p("Choose a language to show what countries that language is spoken in."),
@@ -135,6 +137,7 @@ output$AfricaLangPlot <- renderGirafe({
   theme_void()+
   labs(fill=input$Language, 
     title = paste("Where is", input$Language, "spoken in Africa?"))
+    #paste() can make it so you have something that changes as the inputs change
   
   girafe(ggobj = langMap)
 })
@@ -154,7 +157,7 @@ output$AfricaFamPlot <- renderGirafe({
 girafe(ggobj = famMap)
 })
   
-  
+  #Needed the filtered data for both the table and plot, so I did it once here
   filteredAfricaLangsAndGeo <- reactive({
     africaLangsAndGeo |>
     filter(native_speakers >= input$SpeakerNumMin &
@@ -175,7 +178,7 @@ output$NativeSpeakerPlot <- renderGirafe({
     filter(language != "No Language Data") |>
     ggplot(aes(y=family,x=native_speakers,color = family)) +
     geom_point_interactive(aes(tooltip=language,data_id=language)) +
-    scale_x_continuous(labels = comma) +
+    scale_x_continuous(labels = comma) + #axis was in scientific notation otherwise
     scale_color_viridis_d(option = "turbo") +
     theme(legend.position = "none") +
     labs(x="Number of Native Speakers", y="Language Family",
