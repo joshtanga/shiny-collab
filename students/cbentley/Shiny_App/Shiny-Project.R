@@ -7,10 +7,6 @@ library(shiny)
 library(bslib)
 library(plotly)
 
-
-# setwd("./students/cbentley/Shiny_App")
-# getwd()
-
 # Import kaggle data
 
 sleep_raw <- readr::read_csv('modern_lifestyle_and_sleep_health_2026.csv')
