@@ -150,7 +150,7 @@ server <- function(input, output, session) {
         input$smoking_status,
         levels = levels(stroke$smoking_status)))
 
-    # Uses model to make a prediction of the stroke probability based on patients new data frame
+    # Uses a statistical model to make a prediction of the stroke probability based on patients new data frame
     predict(
       stroke_model,
       newdata = patient,
