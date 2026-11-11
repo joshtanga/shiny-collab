@@ -1,28 +1,41 @@
-# <Your App's Title>
+# Stroke Prediction App
 
 **Author:** Jett Morton
 
 ## The question
-<One or two sentences: what can someone explore with this app?>
+How do patient characteristics, such as gender, age, hypertension, heart disease, glucose level, body mass index (BMI), and smoking status, relate to the likelihood of stroke?
 
 ## The data
-- **Source:** [<dataset name>](<link>)
-- **One row is:** <e.g. one county in one year>
-- **Variables I use:** <list them>
-- **Cleaning:** <what you changed and why>
+- **Source:** [Stroke Prediction Dataset - Kaggle](https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset)
+- **One row is:** One individual patient and their health information.
+- **Variables I use:** Gender, age, hypertension, heart disease, average glucose level, body mass index (BMI), smoking status, and stroke.
+- **Cleaning:** - janitor clean_names
+                - Checked variable types and converted categorical variables into factors because R likes factors.
+                - Removed missing values (N/A) from data
 
 ## How to run it
-1. Install the packages: `install.packages(c("shiny", "bslib", "tidyverse"))`
+1. Install the packages: `install.packages(c("shiny", "bslib", "tidyverse", "janitor"))`
 2. Open `app.R` in Positron and click **Run App**.
 
 ## What the app does
-- **Inputs:** <each input, and why it fits this data>
-- **Outputs:** <each output, and why it fits this question>
+- **Inputs:** 
+- Gender: select a for gender.
+- Age: slider to select for age.
+- Hypertension: select for hypertension.
+- Heart Disease: select heart disease.
+- Average Glucose Level: enter a glucose level.
+- BMI: enter a body mass index.
+- Smoking Status: select a smoking category.
+
+- **Outputs:** 
+- Predicted Stroke Probability: Shows the estimated probability based on the patients information.
 
 ## One thing I learned
-<Something you discovered by using your own app.>
+For this dataset, gender appears to have a weaker correlation to risk of stroke than the other variables modeled.
 
 ## Limitations
-<What the data or the app can't tell you.>
+- In the dataset there are more patients without strokes than patients with strokes.
+- The predictions are not clinically validated and should not be used to make medical decisions.
+- Missing information may affect stroke outcomes.
 
 ![screenshot of my app](screenshot.png)

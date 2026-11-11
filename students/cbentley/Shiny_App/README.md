@@ -1,19 +1,21 @@
-# Comparing daily physical activity, sleep duration, and sleep quality
+# Analyzing sleep duration within three levels of daily physical activity
 
 **Author:** Caity Bentley
 
 ## The question
-<One or two sentences: what can someone explore with this app?>
+This app uses the same dataset I analyzed in Mini Project 2, and I analyze how the daily sleep duration varies within each of the three levels of daily physical activity. 
 
 ## The data
-- **Source:** [<dataset name>](<link>)
-- **One row is:** <e.g. one county in one year>
-- **Variables I use:** <list them>
-- **Cleaning:** <what you changed and why>
+- **Source:** Modern Lifestyle & Sleep Health Metrics (Maria Aqdas 2026)
+                https://www.kaggle.com/datasets/mariaaqdas/modern-lifestyle-and-sleep-health-metrics-2026
+- **One row is:** One individual from the lifestyle and sleep health metrics dataset
+- **Variables I use:** physical_activity_mins, sleep_duration_hours, sleep_quality_score, 
+                        activity_level (created from physical_activity_mins)
+- **Cleaning:** I had done any cleaning needed for mini project 2, and I found that the dataset was already clean, no na values, and no rows needed to be dropped. I still used drop_na() to double check no na values were present in the dataset. 
 
 ## How to run it
-1. Install the packages: `install.packages(c("shiny", "bslib", "tidyverse"))`
-2. Open `app.R` in Positron and click **Run App**.
+1. Install the packages: `install.packages(c("shiny", "bslib", "tidyverse", "plotly"))`
+2. Open `Shiny-Project.R` in Positron and click **Run App**.
 
 ## What the app does
 - **Inputs:** <each input, and why it fits this data>
