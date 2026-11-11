@@ -33,7 +33,18 @@ productivity_data <- social_media |>
       social_media_group,
       levels = c("Low", "Medium", "High")))
 
-glimpse(productivity_data)
+
+# Summarize productivity for all three social media groups
+productivity_summary <- productivity_data |>
+  group_by(social_media_group) |>
+  summarize(
+    median_productivity = median(
+      actual_productivity_score,
+      na.rm = TRUE
+    ),
+    n = n(),
+    .groups = "drop"
+  )
 
 
 # the range of social media usage
@@ -77,15 +88,16 @@ ui <- page_sidebar(
   ),
 
   # app outputs
-  h3("Social Media and Productivity"),
 
-  plotOutput("scatter_plot"),
+plotOutput("scatter_plot"),
+plotOutput("group_plot"),
 
-  plotOutput("group_plot"),
+h3("Productivity Summary by Social Media Group"),
+tableOutput("productivity_summary"),
 
-  textOutput("summary"),
 
-  tableOutput("data_table")
+
+
 )
 
 server <- function(input, output, session) {
@@ -99,6 +111,8 @@ filtered_data <- reactive({
       job_type == input$job | input$job == "All",
       social_media_group == input$group | input$group == "All"
     )
+
+
 
 })
 
@@ -129,6 +143,42 @@ output$scatter_plot <- renderPlot({
 })
 
  
+
+output$productivity_summary <- renderTable({
+  productivity_summary
+})
+
+  output$group_plot <- renderPlot({
+
+    df <- filtered_data()
+
+    validate(
+      need(nrow(df) > 0, "No workers match these filters.")
+    )
+
+    df |>
+      group_by(social_media_group) |>
+      summarize(
+        average_productivity = mean(
+          actual_productivity_score,
+          na.rm = TRUE
+        ),
+        .groups = "drop"
+      ) |>
+      ggplot(
+        aes(
+          x = social_media_group,
+          y = average_productivity
+        )
+      ) +
+      geom_col() +
+      labs(
+        title = "Average Productivity by Social Media Group",
+        x = "Social Media Usage Group",
+        y = "Average Actual Productivity"
+      ) +
+      theme_minimal()
+  })
 
 }
 
