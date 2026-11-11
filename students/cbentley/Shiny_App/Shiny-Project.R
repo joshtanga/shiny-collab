@@ -7,10 +7,6 @@ library(shiny)
 library(bslib)
 library(plotly)
 
-
-# setwd("./students/cbentley/Shiny_App")
-# getwd()
-
 # Import kaggle data
 
 sleep_raw <- readr::read_csv('modern_lifestyle_and_sleep_health_2026.csv')
@@ -57,6 +53,7 @@ ui <- page_sidebar(
     ),
 
     checkboxInput("show_trend", "Show trend line", value = TRUE),
+    
     hr(),
 
     layout_columns(
@@ -67,14 +64,14 @@ ui <- page_sidebar(
     )
   ),
   
-  layout_columns(
+    layout_columns(
     col_widths = c(6, 6),
     card(
     card_header("Daily Sleep Duration vs Physical Activity Plot"),
     plotlyOutput("graph")
   ),
 
-  navset_card_tab(
+    navset_card_tab(
       id = "tabs", 
       nav_panel(
         title = "Low", 
@@ -82,13 +79,13 @@ ui <- page_sidebar(
         tableOutput("table_low")
       ),
 
-  nav_panel(
+      nav_panel(
         title = "Medium", 
         value = "Medium (30-59 min)", 
         tableOutput("table_medium")
       ),
 
-  nav_panel(
+      nav_panel(
         title = "High", 
         value = "High (60+ min)", 
         tableOutput("table_high")
@@ -110,18 +107,9 @@ filtered <- reactive({
               input$sleep_duration_hours[2]))
 })
   
-observeEvent(input$activity, {
-    nav_select("tabs", selected = input$activity)
-  })
-
 output$n_people    <- renderText(format(nrow(filtered()), big.mark = ","))
 output$avg_sleep   <- renderText(round(mean(filtered()$sleep_duration_hours), 2))
 output$avg_quality <- renderText(round(mean(filtered()$sleep_quality_score), 2))
-
-
-observeEvent(input$tabs, {
-  updateSelectInput(session, "activity", selected = input$tabs)
-  })
 
   output$graph <- renderPlotly({
     p <- plot_ly(filtered(),
@@ -162,6 +150,14 @@ observeEvent(input$tabs, {
     filtered() |> filter(activity_level == "High (60+ min)") |> head(50)
   }, caption = "Table showing high physical activity (60+ min)",
    caption.placement = "top")
+
+   observeEvent(input$activity, {
+    nav_select("tabs", selected = input$activity)
+  })
+
+  observeEvent(input$tabs, {
+  updateSelectInput(session, "activity", selected = input$tabs)
+  })
   
 }
 
