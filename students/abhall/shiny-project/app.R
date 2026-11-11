@@ -89,7 +89,37 @@ ui <- page_sidebar(
 )
 
 server <- function(input, output, session) {
+  
+filtered_data <- reactive({
 
+  productivity_data |>
+    filter(
+      daily_social_media_time >= input$daily_time[1],
+      daily_social_media_time <= input$daily_time[2],
+      job_type == input$job | input$job == "All",
+      social_media_group == input$group | input$group == "All"
+    )
+
+})
+
+output$scatter_plot <- renderPlot({
+
+  ggplot(
+    filtered_data(),
+    aes(
+      x = daily_social_media_time,
+      y = actual_productivity_score
+    )
+  ) +
+    geom_point() +
+    labs(
+      title = "Daily Social Media Use vs. Actual Productivity",
+      x = "Daily Social Media Use (Hours)",
+      y = "Actual Productivity Score"
+    ) +
+    theme_minimal()
+
+})
  
 
 }
