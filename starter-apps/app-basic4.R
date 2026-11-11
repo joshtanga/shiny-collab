@@ -13,11 +13,11 @@ ui <- page_fluid(
   sidebarLayout(
     sidebarPanel(
       # syntax for slider input: sliderInput(inputId, label, min, max, value)
-      sliderInput("bill_depth",
-                  "Set bill depth",
-                  min = 13.1,
+      sliderInput("bill_depth", # name of the variable created by the slider
+                  "Set bill depth", # what gets printed
+                  min = 13.1, 
                   max = 21.5,
-                  value = 15)
+                  value = c(15,20)) # set to be a collection to make a 'window slider'
    ),
     
     # Show a plot of the generated distribution

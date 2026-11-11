@@ -17,8 +17,8 @@ ui <- page_fluid(
                   min = 13.1,
                   max = 21.5,
                   value = 15),
-      selectInput("sex",
-                  "Choose sex",
+      selectInput("sex", # variable name
+                  "Choose sex", # what the user sees
                   choices = c("male","female"),
                   selected = "female")
     ),
