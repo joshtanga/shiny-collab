@@ -16,6 +16,10 @@ Keep app.R and the data folder together. The CSV is included and read with a rel
 
 ## Data and controls
 
+source: [2024 county election data](https://euclid.nmu.edu/~joshthom/dat309/week9/zdata/2024_US_County_Level_Presidential_Results.csv)
+
+variables I used: `county_fips`, `county_name`, `state_name`, `votes_dem`, `votes_gop`, `pop`, and `pop_dens`.
+
 The CSV is the county election data from 2024. Each row describes a county or county-equivalent election reporting area. The app uses county codes and names, state names, Democratic and Republican vote counts, population, and population density (people per square mile).
 
 County codes are read as text to preserve leading zeros. The app checks for duplicate codes, joins records to county boundaries, identifies the winner, and flags missing or invalid population/density values before the server runs.
@@ -31,5 +35,6 @@ The east cost tends to have a much higher population density than those compared
 ## Limitations
 
 The map covers the lower 48 United States, excluding Alaska, Hawaii, and territories. County counts are not vote totals; residents are not the same as voters. Geographic patterns show relationships, not proof that population causes voting choices. Missing records and ties have map colors but are not included as rows in the count table.
+
 
 
