@@ -41,10 +41,10 @@ These output fit this question as it shows visiually and statsically the answer.
 
 # One thing I learned:
 
-One thing I leanred from this project is that spending more time on social media does not nessarily mean lower prodicity score. Across all of the social media groups the median productivy was very similar only differning by 0.07 showing that it is pretty flat across the board. Also, I leanred that using shiny to express this data makes it more interactive which shows that it can answer more specific questions with the filtering etc. 
+One thing I leanred from this project is that spending more time on social media does not nessacarily mean lower prodicity score. Across all of the social media groups the median productivity was very similar only differing by 0.07 showing that it is pretty flat across the board. Also, I leanred that using shiny to express this data makes it more interactive which shows that it can answer more specific questions with the filtering etc. 
 
 ## Limitations
-This data set has limitations as other factors can influence producutivy rather than social media. Also this can not be generalized to the public as it is just one sample. The social media groups are also based on hourly cutoffs that i determined changing these may affect the data.
+This data set has limitations as other factors can influence productivity rather than social media. Also this can not be generalized to the public as it is just one sample. The social media groups are also based on hourly cutoffs that I determined, changing these may affect the data.
 
 ![screenshot of my app](screenshot.png)
 

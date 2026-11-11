@@ -56,7 +56,7 @@ daily_range <- range(
 # User interface
 ui <- page_sidebar(
 
-  title = "Social Media Use & Workplace Productivity",
+  title = "Social Media Use & Productivity in the Workplace",
 
   # Sidebar inputs
   sidebar = sidebar(
@@ -93,9 +93,7 @@ plotOutput("scatter_plot"),
 plotOutput("group_plot"),
 
 h3("Productivity Summary by Social Media Group"),
-tableOutput("productivity_summary"),
-
-
+tableOutput("productivity_summary")
 
 
 )
