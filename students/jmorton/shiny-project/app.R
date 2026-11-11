@@ -1,27 +1,32 @@
-# Shiny app
-installed.packages("plotly")
-installed.packages("bslib")
-installed.packages("shiny")
-installed.packages("shinyWidgets")
-installed.packages("tidyverse")
-installed.packages("janitor")
-installed.packages("scales")
-library(plotly)
+# Install/load packages
+install.packages(c("shiny", "bslib", "tidyverse", "janitor"))
 library(bslib)
 library(shiny)
-library(shinyWidgets)
 library(tidyverse)
 library(janitor)
-library(scales)
 
-
-Stroke <- readr::read_csv(
-  "C:/Users/jmorton/shiny-collab/students/jmorton/data/healthcare-dataset-stroke-data.csv") |>
+# Import and clean the data
+stroke <- readr::read_csv(
+  "C:/Users/jmorton/shiny-collab/students/jmorton/shiny-project/data/healthcare-dataset-stroke-data.csv") |>
   janitor::clean_names()
 
-glimpse(Stroke)
+glimpse(stroke)
 
-missing <- Stroke |>
+# Covert variable types
+# hypertension: 0 = No, 1 = Yes
+# heart_disease: 0 = No, 1 = Yes
+# stroke: 0 = No, 1 = Yes
+stroke <- stroke |>
+  mutate(
+    bmi = as.numeric(bmi),
+    gender = as.factor(gender),
+    smoking_status = as.factor(smoking_status),
+    stroke = as.factor(stroke), 
+    hypertension = as.factor(hypertension),
+    heart_disease = as.factor(heart_disease))
+
+# view missing data
+missing <- stroke |>
   summarize(across(everything(),
       ~ sum(is.na(.x)))) |>
   pivot_longer(
@@ -31,10 +36,25 @@ missing <- Stroke |>
 
 missing
 
-Stroke_clean <- Stroke |>
-  tidyr::drop_na()
+# Remove N/A from data
+stroke <- stroke |>
+  tidyr::drop_na() 
 
-view(Stroke_clean)
+# confirm clean up of N/A
+missing <- stroke |>
+  summarize(across(everything(),
+      ~ sum(is.na(.x)))) |>
+  pivot_longer(
+    cols = everything(),
+    names_to = "Variable",
+    values_to = "N/A_count") 
+
+missing
+
+glimpse(stroke)
+
+#
+
 
 #
 ui <- page_fillable(
