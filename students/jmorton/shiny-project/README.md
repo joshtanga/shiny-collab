@@ -31,12 +31,11 @@ How do patient characteristics, such as gender, age, hypertension, heart disease
 - Predicted Stroke Probability: Shows the estimated probability based on the patients information.
 
 ## One thing I learned
-For this dataset, gender appears to have a weaker correlation to chance of stroke than the other variables modeled.
+For this dataset, gender appears to have a weaker correlation to risk of stroke than the other variables modeled.
 
 ## Limitations
 - In the dataset there are more patients without strokes than patients with strokes.
 - The predictions are not clinically validated and should not be used to make medical decisions.
 - Missing information may affect stroke outcomes.
-
 
 ![screenshot of my app](screenshot.png)
