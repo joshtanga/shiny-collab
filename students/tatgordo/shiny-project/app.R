@@ -6,24 +6,13 @@ library(scales)
 library(sf)
 library(usmap)
 
-# Find the CSV from any folder inside the repo.
-find_county_data <- function() {
-  folder <- normalizePath(getwd(), winslash = "/")
-  repeat {
-    path <- file.path(folder, "data", "2024_US_County_Level_Presidential_Results.csv")
-    if (file.exists(path)) return(path)
-    parent <- dirname(folder)
-    if (parent == folder) break
-    folder <- parent
-  }
-  stop("Open the shiny-collab project before running this app.")
-}
-
 # ---- data ----
-votes <- read_csv(find_county_data(), col_types = cols(
+# Shiny runs from this folder, so the bundled CSV works on other computers.
+votes <- read_csv("data/2024_US_County_Level_Presidential_Results.csv", col_types = cols(
   county_fips = col_character(), fips = col_character(), .default = col_guess()
 )) |>
   transmute(fips = str_pad(county_fips, 5, pad = "0"),
+    county = str_c(county_name, ", ", state_name),
     population = pop, density = pop_dens,
     winner = case_when(votes_dem > votes_gop ~ "Harris",
                        votes_gop > votes_dem ~ "Trump",
@@ -71,26 +60,50 @@ range_controls <- function(id, title, upper, step) {
                             min = 0, max = upper, step = step)),
       column(6, numericInput(paste0(id, "_max"), "Maximum", upper,
                             min = 0, max = upper, step = step))),
+    actionButton(paste0(id, "_apply"), "Apply typed range"),
     textOutput(paste0(id, "_error")))
 }
 
 # ---- UI ----
-ui <- page_fluid(
-  titlePanel("Population, density, and the 2024 election"),
-  p("A county keeps its election color only when it fits BOTH selected ranges."),
-  fluidRow(
-    column(6, range_controls("population", "Population (people)", population_limit, 1)),
-    column(6, range_controls("density", "Population density (people per square mile)", density_limit, 0.1))),
-  actionButton("reset", "Reset both filters"),
+ui <- page_sidebar(
+  title = "Population, density, and the 2024 election",
+  fillable = FALSE,
+  sidebar = sidebar(
+    title = "Filter counties", width = 360,
+    p("A county keeps its election color only when it fits BOTH selected ranges."),
+    range_controls("population", "Population (people)", population_limit, 1),
+    range_controls("density", "Population density (people per square mile)", density_limit, 0.1),
+    actionButton("reset", "Reset both filters")
+  ),
   card(card_header("2024 county winners: contiguous United States"),
-    textOutput("summary"), plotOutput("map", height = "650px"),
+    tags$strong(textOutput("county_name")),
+    plotOutput("map", click = "map_click", height = "650px"),
     p("Gray counties are outside your ranges. Cream counties have missing data. Alaska and Hawaii are excluded, matching the class map.")),
+  card(card_header("County counts for your filters"),
+    p("Red and blue counts include only counties that meet BOTH filters."),
+    tableOutput("county_counts")),
   p("Population counts residents, not voters. County shapes show land area, not population. Population reference year has not yet been confirmed.")
 )
 
 # ---- server ----
 server <- function(input, output, session) {
-  # Link each slider with its two number boxes.
+  # Find the county under the click, including gray counties.
+  selected_county <- reactiveVal("Click a county to see its name.")
+  observeEvent(input$map_click, {
+    point <- st_sfc(st_point(c(input$map_click$x, input$map_click$y)),
+                    crs = st_crs(county_map))
+    hit <- st_intersects(point, county_map)[[1]]
+    if (length(hit) == 1) {
+      name <- county_map$county[hit]
+      if (is.na(name)) name <- paste("County code", county_map$fips[hit], "(name unavailable)")
+      selected_county(name)
+    } else {
+      selected_county("Click inside a county to see its name.")
+    }
+  })
+  output$county_name <- renderText(selected_county())
+
+  # Sliders update directly; typed edits wait for Apply to avoid feedback.
   bind_range <- function(id, upper) {
     bounds <- reactiveVal(c(0, upper))
     valid <- function(x) {
@@ -104,7 +117,7 @@ server <- function(input, output, session) {
       updateNumericInput(session, paste0(id, "_min"), value = x[1])
       updateNumericInput(session, paste0(id, "_max"), value = x[2])
     }, priority = 10)
-    observeEvent(list(input[[paste0(id, "_min")]], input[[paste0(id, "_max")]]), {
+    observeEvent(input[[paste0(id, "_apply")]], {
       x <- c(input[[paste0(id, "_min")]], input[[paste0(id, "_max")]])
       req(valid(x))
       if (!isTRUE(all.equal(x, bounds()))) {
@@ -131,12 +144,19 @@ server <- function(input, output, session) {
 
   # Both filters include their minimum and maximum.
   mapped <- reactive(classify_counties(population_bounds(), density_bounds()))
-  output$map <- renderPlot(draw_map(mapped()))
-  output$summary <- renderText({
-    data <- mapped()
-    paste0(comma(sum(data$status %in% c("Harris", "Trump", "Tie"))),
-           " counties in range | ", comma(sum(data$status == "Outside range")),
-           " outside range | ", comma(sum(data$status == "Missing data")), " missing data")
+  # Count the same color groups shown on the map, including zeros.
+  county_counts <- reactive({
+    status <- mapped()$status
+    tibble(
+      Category = c("Red - Trump (in range)", "Blue - Harris (in range)",
+                   "Gray - outside range"),
+      Counties = vapply(c("Trump", "Harris", "Outside range"),
+                        function(group) sum(status == group), integer(1))
+    )
   })
+  output$county_counts <- renderTable({
+    county_counts() |> mutate(Counties = comma(Counties))
+  }, striped = TRUE, bordered = TRUE, align = "lr", spacing = "s")
+  output$map <- renderPlot(draw_map(mapped()))
 }
 shinyApp(ui, server)
