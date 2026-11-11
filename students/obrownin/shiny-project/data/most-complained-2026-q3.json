@@ -1,0 +1,1013 @@
+{
+ "edition": "Q3 2026",
+ "source": "NHTSA's consumer complaint database",
+ "source_url": "https://www.nhtsa.gov/nhtsa-datasets-and-apis",
+ "model_years": "2010-2025",
+ "minimum_complaints_per_vehicle": 10,
+ "bulk_file_dated": "2026-08-25",
+ "counting": "one complaint counted once per vehicle; components counted once per complaint that names them",
+ "license": "CC BY 4.0, credit Oil & Miles and link to https://oilandmiles.com/reports/most-complained-cars",
+ "rows": [
+  {
+   "rank": 1,
+   "vehicle": "2010 Ford Fusion",
+   "make": "Ford",
+   "model": "Fusion",
+   "model_year": 2010,
+   "complaints": 5126,
+   "top_component": "Steering",
+   "top_component_complaints": 1640
+  },
+  {
+   "rank": 2,
+   "vehicle": "2012 Ford Focus",
+   "make": "Ford",
+   "model": "Focus",
+   "model_year": 2012,
+   "complaints": 3763,
+   "top_component": "Power train",
+   "top_component_complaints": 1385
+  },
+  {
+   "rank": 3,
+   "vehicle": "2011 Hyundai Sonata",
+   "make": "Hyundai",
+   "model": "Sonata",
+   "model_year": 2011,
+   "complaints": 3374,
+   "top_component": "Steering",
+   "top_component_complaints": 1164
+  },
+  {
+   "rank": 4,
+   "vehicle": "2013 Ford F-150",
+   "make": "Ford",
+   "model": "F-150",
+   "model_year": 2013,
+   "complaints": 2975,
+   "top_component": "Power train",
+   "top_component_complaints": 1307
+  },
+  {
+   "rank": 5,
+   "vehicle": "2010 Toyota Prius",
+   "make": "Toyota",
+   "model": "Prius",
+   "model_year": 2010,
+   "complaints": 2819,
+   "top_component": "Service brakes, hydraulic",
+   "top_component_complaints": 751
+  },
+  {
+   "rank": 6,
+   "vehicle": "2011 Ford Fusion",
+   "make": "Ford",
+   "model": "Fusion",
+   "model_year": 2011,
+   "complaints": 2783,
+   "top_component": "Steering",
+   "top_component_complaints": 1403
+  },
+  {
+   "rank": 7,
+   "vehicle": "2013 Ford Escape",
+   "make": "Ford",
+   "model": "Escape",
+   "model_year": 2013,
+   "complaints": 2744,
+   "top_component": "Engine",
+   "top_component_complaints": 1264
+  },
+  {
+   "rank": 8,
+   "vehicle": "2017 Ford Escape",
+   "make": "Ford",
+   "model": "Escape",
+   "model_year": 2017,
+   "complaints": 2663,
+   "top_component": "Engine",
+   "top_component_complaints": 1555
+  },
+  {
+   "rank": 9,
+   "vehicle": "2014 Jeep Cherokee",
+   "make": "Jeep",
+   "model": "Cherokee",
+   "model_year": 2014,
+   "complaints": 2641,
+   "top_component": "Power train",
+   "top_component_complaints": 1448
+  },
+  {
+   "rank": 10,
+   "vehicle": "2014 Ford Focus",
+   "make": "Ford",
+   "model": "Focus",
+   "model_year": 2014,
+   "complaints": 2596,
+   "top_component": "Power train",
+   "top_component_complaints": 1491
+  },
+  {
+   "rank": 11,
+   "vehicle": "2018 Ram 2500",
+   "make": "Ram",
+   "model": "2500",
+   "model_year": 2018,
+   "complaints": 2547,
+   "top_component": "Service brakes",
+   "top_component_complaints": 1817
+  },
+  {
+   "rank": 12,
+   "vehicle": "2012 Ford Fusion",
+   "make": "Ford",
+   "model": "Fusion",
+   "model_year": 2012,
+   "complaints": 2513,
+   "top_component": "Steering",
+   "top_component_complaints": 1439
+  },
+  {
+   "rank": 13,
+   "vehicle": "2016 Ford Explorer",
+   "make": "Ford",
+   "model": "Explorer",
+   "model_year": 2016,
+   "complaints": 2441,
+   "top_component": "Steering",
+   "top_component_complaints": 502
+  },
+  {
+   "rank": 14,
+   "vehicle": "2013 Ford Edge",
+   "make": "Ford",
+   "model": "Edge",
+   "model_year": 2013,
+   "complaints": 2439,
+   "top_component": "Electrical system",
+   "top_component_complaints": 851
+  },
+  {
+   "rank": 15,
+   "vehicle": "2014 Jeep Grand Cherokee",
+   "make": "Jeep",
+   "model": "Grand Cherokee",
+   "model_year": 2014,
+   "complaints": 2373,
+   "top_component": "Power train",
+   "top_component_complaints": 467
+  },
+  {
+   "rank": 16,
+   "vehicle": "2013 Nissan Altima",
+   "make": "Nissan",
+   "model": "Altima",
+   "model_year": 2013,
+   "complaints": 2308,
+   "top_component": "Air bags",
+   "top_component_complaints": 512
+  },
+  {
+   "rank": 17,
+   "vehicle": "2018 Ford F-150",
+   "make": "Ford",
+   "model": "F-150",
+   "model_year": 2018,
+   "complaints": 2273,
+   "top_component": "Power train",
+   "top_component_complaints": 970
+  },
+  {
+   "rank": 18,
+   "vehicle": "2013 Ford Explorer",
+   "make": "Ford",
+   "model": "Explorer",
+   "model_year": 2013,
+   "complaints": 2230,
+   "top_component": "Steering",
+   "top_component_complaints": 808
+  },
+  {
+   "rank": 19,
+   "vehicle": "2011 Ford F-150",
+   "make": "Ford",
+   "model": "F-150",
+   "model_year": 2011,
+   "complaints": 2186,
+   "top_component": "Power train",
+   "top_component_complaints": 810
+  },
+  {
+   "rank": 20,
+   "vehicle": "2018 Honda CR-V",
+   "make": "Honda",
+   "model": "CR-V",
+   "model_year": 2018,
+   "complaints": 2122,
+   "top_component": "Engine",
+   "top_component_complaints": 524
+  },
+  {
+   "rank": 21,
+   "vehicle": "2013 Ford Focus",
+   "make": "Ford",
+   "model": "Focus",
+   "model_year": 2013,
+   "complaints": 2106,
+   "top_component": "Power train",
+   "top_component_complaints": 1051
+  },
+  {
+   "rank": 22,
+   "vehicle": "2014 Ford Escape",
+   "make": "Ford",
+   "model": "Escape",
+   "model_year": 2014,
+   "complaints": 2075,
+   "top_component": "Engine",
+   "top_component_complaints": 719
+  },
+  {
+   "rank": 23,
+   "vehicle": "2010 Ford Escape",
+   "make": "Ford",
+   "model": "Escape",
+   "model_year": 2010,
+   "complaints": 2068,
+   "top_component": "Vehicle speed control",
+   "top_component_complaints": 557
+  },
+  {
+   "rank": 24,
+   "vehicle": "2016 Ford F-150",
+   "make": "Ford",
+   "model": "F-150",
+   "model_year": 2016,
+   "complaints": 2023,
+   "top_component": "Power train",
+   "top_component_complaints": 552
+  },
+  {
+   "rank": 25,
+   "vehicle": "2015 Chrysler 200",
+   "make": "Chrysler",
+   "model": "200",
+   "model_year": 2015,
+   "complaints": 1983,
+   "top_component": "Electrical system",
+   "top_component_complaints": 746
+  },
+  {
+   "rank": 26,
+   "vehicle": "2013 Hyundai Sonata",
+   "make": "Hyundai",
+   "model": "Sonata",
+   "model_year": 2013,
+   "complaints": 1903,
+   "top_component": "Engine",
+   "top_component_complaints": 730
+  },
+  {
+   "rank": 27,
+   "vehicle": "2018 Honda Accord",
+   "make": "Honda",
+   "model": "Accord",
+   "model_year": 2018,
+   "complaints": 1853,
+   "top_component": "Engine",
+   "top_component_complaints": 537
+  },
+  {
+   "rank": 28,
+   "vehicle": "2018 Jeep Wrangler",
+   "make": "Jeep",
+   "model": "Wrangler",
+   "model_year": 2018,
+   "complaints": 1806,
+   "top_component": "Steering",
+   "top_component_complaints": 1112
+  },
+  {
+   "rank": 29,
+   "vehicle": "2011 Ford Edge",
+   "make": "Ford",
+   "model": "Edge",
+   "model_year": 2011,
+   "complaints": 1801,
+   "top_component": "Electrical system",
+   "top_component_complaints": 683
+  },
+  {
+   "rank": 30,
+   "vehicle": "2013 Ford Fusion",
+   "make": "Ford",
+   "model": "Fusion",
+   "model_year": 2013,
+   "complaints": 1785,
+   "top_component": "Engine",
+   "top_component_complaints": 382
+  },
+  {
+   "rank": 31,
+   "vehicle": "2015 Jeep Cherokee",
+   "make": "Jeep",
+   "model": "Cherokee",
+   "model_year": 2015,
+   "complaints": 1784,
+   "top_component": "Power train",
+   "top_component_complaints": 992
+  },
+  {
+   "rank": 32,
+   "vehicle": "2012 Ford F-150",
+   "make": "Ford",
+   "model": "F-150",
+   "model_year": 2012,
+   "complaints": 1777,
+   "top_component": "Power train",
+   "top_component_complaints": 669
+  },
+  {
+   "rank": 33,
+   "vehicle": "2018 Ford Escape",
+   "make": "Ford",
+   "model": "Escape",
+   "model_year": 2018,
+   "complaints": 1770,
+   "top_component": "Engine",
+   "top_component_complaints": 1128
+  },
+  {
+   "rank": 34,
+   "vehicle": "2015 Ford Explorer",
+   "make": "Ford",
+   "model": "Explorer",
+   "model_year": 2015,
+   "complaints": 1770,
+   "top_component": "Steering",
+   "top_component_complaints": 336
+  },
+  {
+   "rank": 35,
+   "vehicle": "2017 Honda CR-V",
+   "make": "Honda",
+   "model": "CR-V",
+   "model_year": 2017,
+   "complaints": 1756,
+   "top_component": "Engine",
+   "top_component_complaints": 527
+  },
+  {
+   "rank": 36,
+   "vehicle": "2014 Ram 1500",
+   "make": "Ram",
+   "model": "1500",
+   "model_year": 2014,
+   "complaints": 1750,
+   "top_component": "Steering",
+   "top_component_complaints": 487
+  },
+  {
+   "rank": 37,
+   "vehicle": "2016 Honda Pilot",
+   "make": "Honda",
+   "model": "Pilot",
+   "model_year": 2016,
+   "complaints": 1685,
+   "top_component": "Engine",
+   "top_component_complaints": 758
+  },
+  {
+   "rank": 38,
+   "vehicle": "2015 Ford F-150",
+   "make": "Ford",
+   "model": "F-150",
+   "model_year": 2015,
+   "complaints": 1683,
+   "top_component": "Power train",
+   "top_component_complaints": 381
+  },
+  {
+   "rank": 39,
+   "vehicle": "2017 Ford Explorer",
+   "make": "Ford",
+   "model": "Explorer",
+   "model_year": 2017,
+   "complaints": 1677,
+   "top_component": "Structure",
+   "top_component_complaints": 367
+  },
+  {
+   "rank": 40,
+   "vehicle": "2014 Ford Explorer",
+   "make": "Ford",
+   "model": "Explorer",
+   "model_year": 2014,
+   "complaints": 1673,
+   "top_component": "Steering",
+   "top_component_complaints": 483
+  },
+  {
+   "rank": 41,
+   "vehicle": "2011 Jeep Grand Cherokee",
+   "make": "Jeep",
+   "model": "Grand Cherokee",
+   "model_year": 2011,
+   "complaints": 1639,
+   "top_component": "Electrical system",
+   "top_component_complaints": 760
+  },
+  {
+   "rank": 42,
+   "vehicle": "2012 Jeep Grand Cherokee",
+   "make": "Jeep",
+   "model": "Grand Cherokee",
+   "model_year": 2012,
+   "complaints": 1638,
+   "top_component": "Electrical system",
+   "top_component_complaints": 802
+  },
+  {
+   "rank": 43,
+   "vehicle": "2016 Hyundai Tucson",
+   "make": "Hyundai",
+   "model": "Tucson",
+   "model_year": 2016,
+   "complaints": 1616,
+   "top_component": "Power train",
+   "top_component_complaints": 513
+  },
+  {
+   "rank": 44,
+   "vehicle": "2019 Jeep Cherokee",
+   "make": "Jeep",
+   "model": "Cherokee",
+   "model_year": 2019,
+   "complaints": 1615,
+   "top_component": "Power train",
+   "top_component_complaints": 771
+  },
+  {
+   "rank": 45,
+   "vehicle": "2016 Ford Fusion",
+   "make": "Ford",
+   "model": "Fusion",
+   "model_year": 2016,
+   "complaints": 1608,
+   "top_component": "Engine",
+   "top_component_complaints": 439
+  },
+  {
+   "rank": 46,
+   "vehicle": "2020 Ford Escape",
+   "make": "Ford",
+   "model": "Escape",
+   "model_year": 2020,
+   "complaints": 1582,
+   "top_component": "Structure, body",
+   "top_component_complaints": 493
+  },
+  {
+   "rank": 47,
+   "vehicle": "2010 Chrysler Town AND Country",
+   "make": "Chrysler",
+   "model": "Town AND Country",
+   "model_year": 2010,
+   "complaints": 1556,
+   "top_component": "Electrical system",
+   "top_component_complaints": 960
+  },
+  {
+   "rank": 48,
+   "vehicle": "2012 Hyundai Sonata",
+   "make": "Hyundai",
+   "model": "Sonata",
+   "model_year": 2012,
+   "complaints": 1556,
+   "top_component": "Engine",
+   "top_component_complaints": 567
+  },
+  {
+   "rank": 49,
+   "vehicle": "2016 Ram 1500",
+   "make": "Ram",
+   "model": "1500",
+   "model_year": 2016,
+   "complaints": 1526,
+   "top_component": "Steering",
+   "top_component_complaints": 304
+  },
+  {
+   "rank": 50,
+   "vehicle": "2014 Ford F-150",
+   "make": "Ford",
+   "model": "F-150",
+   "model_year": 2014,
+   "complaints": 1520,
+   "top_component": "Power train",
+   "top_component_complaints": 410
+  },
+  {
+   "rank": 51,
+   "vehicle": "2011 Kia Sorento",
+   "make": "Kia",
+   "model": "Sorento",
+   "model_year": 2011,
+   "complaints": 1517,
+   "top_component": "Engine",
+   "top_component_complaints": 284
+  },
+  {
+   "rank": 52,
+   "vehicle": "2017 Chrysler Pacifica",
+   "make": "Chrysler",
+   "model": "Pacifica",
+   "model_year": 2017,
+   "complaints": 1499,
+   "top_component": "Engine",
+   "top_component_complaints": 520
+  },
+  {
+   "rank": 53,
+   "vehicle": "2019 Ram 1500",
+   "make": "Ram",
+   "model": "1500",
+   "model_year": 2019,
+   "complaints": 1463,
+   "top_component": "Electrical system",
+   "top_component_complaints": 366
+  },
+  {
+   "rank": 54,
+   "vehicle": "2015 Ram 1500",
+   "make": "Ram",
+   "model": "1500",
+   "model_year": 2015,
+   "complaints": 1436,
+   "top_component": "Steering",
+   "top_component_complaints": 336
+  },
+  {
+   "rank": 55,
+   "vehicle": "2014 Chevrolet Silverado 1500",
+   "make": "Chevrolet",
+   "model": "Silverado 1500",
+   "model_year": 2014,
+   "complaints": 1433,
+   "top_component": "Steering",
+   "top_component_complaints": 400
+  },
+  {
+   "rank": 56,
+   "vehicle": "2013 Honda Accord",
+   "make": "Honda",
+   "model": "Accord",
+   "model_year": 2013,
+   "complaints": 1418,
+   "top_component": "Steering",
+   "top_component_complaints": 493
+  },
+  {
+   "rank": 57,
+   "vehicle": "2017 Ford F-150",
+   "make": "Ford",
+   "model": "F-150",
+   "model_year": 2017,
+   "complaints": 1414,
+   "top_component": "Power train",
+   "top_component_complaints": 519
+  },
+  {
+   "rank": 58,
+   "vehicle": "2016 Jeep Cherokee",
+   "make": "Jeep",
+   "model": "Cherokee",
+   "model_year": 2016,
+   "complaints": 1403,
+   "top_component": "Power train",
+   "top_component_complaints": 617
+  },
+  {
+   "rank": 59,
+   "vehicle": "2013 Kia Optima",
+   "make": "Kia",
+   "model": "Optima",
+   "model_year": 2013,
+   "complaints": 1379,
+   "top_component": "Engine",
+   "top_component_complaints": 612
+  },
+  {
+   "rank": 60,
+   "vehicle": "2010 Chevrolet Malibu",
+   "make": "Chevrolet",
+   "model": "Malibu",
+   "model_year": 2010,
+   "complaints": 1359,
+   "top_component": "Steering",
+   "top_component_complaints": 449
+  },
+  {
+   "rank": 61,
+   "vehicle": "2015 Jeep Grand Cherokee",
+   "make": "Jeep",
+   "model": "Grand Cherokee",
+   "model_year": 2015,
+   "complaints": 1354,
+   "top_component": "Power train",
+   "top_component_complaints": 346
+  },
+  {
+   "rank": 62,
+   "vehicle": "2017 Jeep Cherokee",
+   "make": "Jeep",
+   "model": "Cherokee",
+   "model_year": 2017,
+   "complaints": 1328,
+   "top_component": "Power train",
+   "top_component_complaints": 640
+  },
+  {
+   "rank": 63,
+   "vehicle": "2014 Ford Fusion",
+   "make": "Ford",
+   "model": "Fusion",
+   "model_year": 2014,
+   "complaints": 1324,
+   "top_component": "Steering",
+   "top_component_complaints": 317
+  },
+  {
+   "rank": 64,
+   "vehicle": "2011 Ford Escape",
+   "make": "Ford",
+   "model": "Escape",
+   "model_year": 2011,
+   "complaints": 1316,
+   "top_component": "Steering",
+   "top_component_complaints": 406
+  },
+  {
+   "rank": 65,
+   "vehicle": "2017 Ford Edge",
+   "make": "Ford",
+   "model": "Edge",
+   "model_year": 2017,
+   "complaints": 1313,
+   "top_component": "Engine",
+   "top_component_complaints": 657
+  },
+  {
+   "rank": 66,
+   "vehicle": "2013 Hyundai Elantra",
+   "make": "Hyundai",
+   "model": "Elantra",
+   "model_year": 2013,
+   "complaints": 1311,
+   "top_component": "Steering",
+   "top_component_complaints": 269
+  },
+  {
+   "rank": 67,
+   "vehicle": "2019 Ford F-150",
+   "make": "Ford",
+   "model": "F-150",
+   "model_year": 2019,
+   "complaints": 1309,
+   "top_component": "Power train",
+   "top_component_complaints": 707
+  },
+  {
+   "rank": 68,
+   "vehicle": "2013 Ram 1500",
+   "make": "Ram",
+   "model": "1500",
+   "model_year": 2013,
+   "complaints": 1263,
+   "top_component": "Steering",
+   "top_component_complaints": 618
+  },
+  {
+   "rank": 69,
+   "vehicle": "2016 Kia Sorento",
+   "make": "Kia",
+   "model": "Sorento",
+   "model_year": 2016,
+   "complaints": 1244,
+   "top_component": "Engine",
+   "top_component_complaints": 690
+  },
+  {
+   "rank": 70,
+   "vehicle": "2010 Toyota Corolla",
+   "make": "Toyota",
+   "model": "Corolla",
+   "model_year": 2010,
+   "complaints": 1244,
+   "top_component": "Air bags",
+   "top_component_complaints": 419
+  },
+  {
+   "rank": 71,
+   "vehicle": "2011 Ford Explorer",
+   "make": "Ford",
+   "model": "Explorer",
+   "model_year": 2011,
+   "complaints": 1195,
+   "top_component": "Steering",
+   "top_component_complaints": 727
+  },
+  {
+   "rank": 72,
+   "vehicle": "2020 Ford Explorer",
+   "make": "Ford",
+   "model": "Explorer",
+   "model_year": 2020,
+   "complaints": 1194,
+   "top_component": "Power train",
+   "top_component_complaints": 461
+  },
+  {
+   "rank": 73,
+   "vehicle": "2016 Ford Focus",
+   "make": "Ford",
+   "model": "Focus",
+   "model_year": 2016,
+   "complaints": 1178,
+   "top_component": "Power train",
+   "top_component_complaints": 622
+  },
+  {
+   "rank": 74,
+   "vehicle": "2019 Ford F-250 SD",
+   "make": "Ford",
+   "model": "F-250 SD",
+   "model_year": 2019,
+   "complaints": 1161,
+   "top_component": "Steering",
+   "top_component_complaints": 771
+  },
+  {
+   "rank": 75,
+   "vehicle": "2017 Ford F-250 SD",
+   "make": "Ford",
+   "model": "F-250 SD",
+   "model_year": 2017,
+   "complaints": 1155,
+   "top_component": "Steering",
+   "top_component_complaints": 715
+  },
+  {
+   "rank": 76,
+   "vehicle": "2015 Hyundai Sonata",
+   "make": "Hyundai",
+   "model": "Sonata",
+   "model_year": 2015,
+   "complaints": 1139,
+   "top_component": "Engine",
+   "top_component_complaints": 618
+  },
+  {
+   "rank": 77,
+   "vehicle": "2023 Tesla Model Y",
+   "make": "Tesla",
+   "model": "Model Y",
+   "model_year": 2023,
+   "complaints": 1134,
+   "top_component": "Forward collision avoidance,  adaptive cruise control",
+   "top_component_complaints": 299
+  },
+  {
+   "rank": 78,
+   "vehicle": "2012 Ford Edge",
+   "make": "Ford",
+   "model": "Edge",
+   "model_year": 2012,
+   "complaints": 1132,
+   "top_component": "Electrical system",
+   "top_component_complaints": 459
+  },
+  {
+   "rank": 79,
+   "vehicle": "2014 Nissan Altima",
+   "make": "Nissan",
+   "model": "Altima",
+   "model_year": 2014,
+   "complaints": 1113,
+   "top_component": "Exterior lighting",
+   "top_component_complaints": 279
+  },
+  {
+   "rank": 80,
+   "vehicle": "2017 Ford Fusion",
+   "make": "Ford",
+   "model": "Fusion",
+   "model_year": 2017,
+   "complaints": 1103,
+   "top_component": "Engine",
+   "top_component_complaints": 391
+  },
+  {
+   "rank": 81,
+   "vehicle": "2015 Chevrolet Silverado 1500",
+   "make": "Chevrolet",
+   "model": "Silverado 1500",
+   "model_year": 2015,
+   "complaints": 1098,
+   "top_component": "Service brakes",
+   "top_component_complaints": 349
+  },
+  {
+   "rank": 82,
+   "vehicle": "2016 Ford Escape",
+   "make": "Ford",
+   "model": "Escape",
+   "model_year": 2016,
+   "complaints": 1091,
+   "top_component": "Power train",
+   "top_component_complaints": 307
+  },
+  {
+   "rank": 83,
+   "vehicle": "2012 Dodge Dart",
+   "make": "Dodge",
+   "model": "Dart",
+   "model_year": 2012,
+   "complaints": 1081,
+   "top_component": "Power train",
+   "top_component_complaints": 446
+  },
+  {
+   "rank": 84,
+   "vehicle": "2019 Honda CR-V",
+   "make": "Honda",
+   "model": "CR-V",
+   "model_year": 2019,
+   "complaints": 1081,
+   "top_component": "Forward collision avoidance,  automatic emergency braking",
+   "top_component_complaints": 255
+  },
+  {
+   "rank": 85,
+   "vehicle": "2017 Hyundai Tucson",
+   "make": "Hyundai",
+   "model": "Tucson",
+   "model_year": 2017,
+   "complaints": 1081,
+   "top_component": "Engine",
+   "top_component_complaints": 591
+  },
+  {
+   "rank": 86,
+   "vehicle": "2016 Honda Civic",
+   "make": "Honda",
+   "model": "Civic",
+   "model_year": 2016,
+   "complaints": 1073,
+   "top_component": "Steering",
+   "top_component_complaints": 435
+  },
+  {
+   "rank": 87,
+   "vehicle": "2015 Ford Escape",
+   "make": "Ford",
+   "model": "Escape",
+   "model_year": 2015,
+   "complaints": 1068,
+   "top_component": "Power train",
+   "top_component_complaints": 268
+  },
+  {
+   "rank": 88,
+   "vehicle": "2021 Tesla Model Y",
+   "make": "Tesla",
+   "model": "Model Y",
+   "model_year": 2021,
+   "complaints": 1059,
+   "top_component": "Forward collision avoidance,  adaptive cruise control",
+   "top_component_complaints": 406
+  },
+  {
+   "rank": 89,
+   "vehicle": "2019 Chevrolet Silverado 1500",
+   "make": "Chevrolet",
+   "model": "Silverado 1500",
+   "model_year": 2019,
+   "complaints": 1058,
+   "top_component": "Engine",
+   "top_component_complaints": 355
+  },
+  {
+   "rank": 90,
+   "vehicle": "2019 Subaru Outback",
+   "make": "Subaru",
+   "model": "Outback",
+   "model_year": 2019,
+   "complaints": 1032,
+   "top_component": "Electrical system",
+   "top_component_complaints": 353
+  },
+  {
+   "rank": 91,
+   "vehicle": "2015 Ford Focus",
+   "make": "Ford",
+   "model": "Focus",
+   "model_year": 2015,
+   "complaints": 1015,
+   "top_component": "Power train",
+   "top_component_complaints": 517
+  },
+  {
+   "rank": 92,
+   "vehicle": "2015 Kia Optima",
+   "make": "Kia",
+   "model": "Optima",
+   "model_year": 2015,
+   "complaints": 1006,
+   "top_component": "Engine",
+   "top_component_complaints": 620
+  },
+  {
+   "rank": 93,
+   "vehicle": "2018 Tesla Model 3",
+   "make": "Tesla",
+   "model": "Model 3",
+   "model_year": 2018,
+   "complaints": 1005,
+   "top_component": "Suspension",
+   "top_component_complaints": 176
+  },
+  {
+   "rank": 94,
+   "vehicle": "2010 Mercury Milan",
+   "make": "Mercury",
+   "model": "Milan",
+   "model_year": 2010,
+   "complaints": 1001,
+   "top_component": "Steering",
+   "top_component_complaints": 245
+  },
+  {
+   "rank": 95,
+   "vehicle": "2016 Dodge Grand Caravan",
+   "make": "Dodge",
+   "model": "Grand Caravan",
+   "model_year": 2016,
+   "complaints": 998,
+   "top_component": "Electrical system",
+   "top_component_complaints": 310
+  },
+  {
+   "rank": 96,
+   "vehicle": "2015 Ford Fusion",
+   "make": "Ford",
+   "model": "Fusion",
+   "model_year": 2015,
+   "complaints": 990,
+   "top_component": "Engine",
+   "top_component_complaints": 269
+  },
+  {
+   "rank": 97,
+   "vehicle": "2010 Dodge Journey",
+   "make": "Dodge",
+   "model": "Journey",
+   "model_year": 2010,
+   "complaints": 988,
+   "top_component": "Electrical system",
+   "top_component_complaints": 577
+  },
+  {
+   "rank": 98,
+   "vehicle": "2021 Ford F-150",
+   "make": "Ford",
+   "model": "F-150",
+   "model_year": 2021,
+   "complaints": 985,
+   "top_component": "Power train",
+   "top_component_complaints": 296
+  },
+  {
+   "rank": 99,
+   "vehicle": "2014 Kia Sorento",
+   "make": "Kia",
+   "model": "Sorento",
+   "model_year": 2014,
+   "complaints": 982,
+   "top_component": "Engine",
+   "top_component_complaints": 385
+  },
+  {
+   "rank": 100,
+   "vehicle": "2013 Kia Sorento",
+   "make": "Kia",
+   "model": "Sorento",
+   "model_year": 2013,
+   "complaints": 980,
+   "top_component": "Engine",
+   "top_component_complaints": 496
+  }
+ ],
+ "published": "2026-09-14"
+}
