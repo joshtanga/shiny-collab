@@ -7,7 +7,7 @@ library(janitor)
 
 # Import and clean the data
 stroke <- readr::read_csv(
-  "C:/Users/jmorton/shiny-collab/students/jmorton/shiny-project/data/healthcare-dataset-stroke-data.csv") |>
+  "C:shiny-collab/students/jmorton/shiny-project/data/healthcare-dataset-stroke-data.csv") |>
   janitor::clean_names()
 
 glimpse(stroke)
@@ -36,7 +36,7 @@ missing <- stroke |>
 
 missing
 
-# Remove N/A from data
+# Remove 201 rows with missing bmi data 
 stroke <- stroke |>
   tidyr::drop_na() 
 
@@ -53,7 +53,16 @@ missing
 
 glimpse(stroke)
 
-#
+# Use cleaned dataset to build a binomial logistic regression model to predict an outcome that has two possible categories.
+# For example:
+# 0 = No stroke
+# 1 = Stroke
+stroke_model <- glm(
+  stroke ~ gender + age + hypertension +
+    heart_disease + avg_glucose_level +
+    bmi + smoking_status,
+  data = stroke,
+  family = binomial)
 
 
 #
