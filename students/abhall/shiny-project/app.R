@@ -1,7 +1,11 @@
+#loading the packages
+
 library(tidyverse)
 library(janitor)
+library(bslib)
 
-social_media <- read_csv("C:/Users/abhall/Desktop/Data 309/social_media_vs_productivity.csv")|>
+#cleaning and importing the data
+social_media <- read_csv("data/social_media_vs_productivity.csv")|>
     janitor::clean_names()
 
 glimpse(social_media)
