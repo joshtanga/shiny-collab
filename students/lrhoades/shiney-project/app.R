@@ -28,6 +28,7 @@ data <- data |>
 
 ui <- page_sidebar(
   title = "Video Game Publisher Sales",
+  fillable = FALSE,
 
   sidebar = sidebar(
     h4("filters"),
@@ -59,7 +60,16 @@ ui <- page_sidebar(
   
   h3("Top Video Game Publishers By Global Sales"),
 
-  plotOutput("publisher_plot")
+  plotOutput("publisher_plot", height = "500px"),
+
+  h3("Global Sales by Release year"),
+
+  plotOutput("year_plot", height = "450px"),
+
+  h3("Regional Sales by Punlisher"),
+
+  tableOutput("regional_table")
+
 )
 
 server <- function(input, output){
@@ -103,7 +113,37 @@ server <- function(input, output){
       ) +
       scale_y_continuous(labels = scales::label_number(suffix = "M"))+
       theme_minimal()
+  }) 
+
+  output$year_plot <- renderPlot({
+
+    filtered_games() |>
+      group_by(year_of_release) |>
+      summarise(total_sales = sum(global_sales), .groups = "drop") |>
+      ggplot(aes(x = year_of_release, y = total_sales)) +
+      geom_line(color = "steelblue", linewidth = 1) +
+      geom_point(color = "steelblue") +
+      labs(
+        title = "Global Sales by Game Release Year",
+        x = "Year of Release",
+        y = "Global Sales (Millions of Copies)"
+      ) +
+      scale_y_continuous(labels = scales::label_number(suffix = "M")) +
+      theme_minimal()
   })
+
+  output$regional_table <- renderTable({
+    filtered_games() |>
+      group_by(publisher) |>
+      summarise(
+        North_America = round(sum(na_sales), 2),
+        Europe = round(sum(eu_sales), 2),
+        Global = round(sum(global_sales), 2),
+        .groups = "drop"
+      ) |>
+      arrange(desc(Global)) |>
+      slice_head(n = 10)
+  }, striped = TRUE, hover = TRUE)
 }
 
 shinyApp(ui, server)
