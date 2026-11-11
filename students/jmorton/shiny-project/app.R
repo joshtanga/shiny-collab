@@ -70,7 +70,58 @@ ui <- page_fillable(
 
    layout_columns(
     col_widths = c(6, 6),
-    h4("Patient Information")))
+    h4("Patient Information"),
+
+    # Inputs
+    selectInput(
+      "gender",
+      "Gender",
+      choices = levels(stroke$gender)),
+
+
+    selectInput(
+      "hypertension",
+      "Hypertension?",
+      choices = c("No" = "0", "Yes" = "1")),
+
+    selectInput(
+      "heart_disease",
+      "Heart Disease?",
+      choices = c("No" = "0", "Yes" = "1")),
+
+    numericInput(
+      "glucose",
+      "Average Glucose Level",
+      value = 100,
+      min = 1,
+      max = 300),
+
+    numericInput(
+      "bmi",
+      "BMI",
+      value = 25,
+      min = 10,
+      max = 100),
+
+    selectInput(
+      "smoking_status",
+      "Smoking Status",
+      choices = levels(stroke$smoking_status)),
+
+   sliderInput(
+      "age",
+      "Age",
+      min = 1,
+      max = 100,
+      value = 50)),
+
+  # Outputs
+  h4("Predicted Stroke Probability"),
+
+  uiOutput("probability_box"),
+
+  p("This prediction is based on patterns in the
+    dataset and is not a medical diagnosis."))
 
 # Server
 server <- function(input, output, session) {
@@ -80,22 +131,22 @@ server <- function(input, output, session) {
     patient <- data.frame(
       gender = factor(
         input$gender,
-        levels = levels(stroke_data$gender)
+        levels = levels(stroke$gender)
       ),
       age = input$age,
       hypertension = factor(
         input$hypertension,
-        levels = levels(stroke_data$hypertension)
+        levels = levels(stroke$hypertension)
       ),
       heart_disease = factor(
         input$heart_disease,
-        levels = levels(stroke_data$heart_disease)
+        levels = levels(stroke$heart_disease)
       ),
       avg_glucose_level = input$glucose,
       bmi = input$bmi,
       smoking_status = factor(
         input$smoking_status,
-        levels = levels(stroke_data$smoking_status)))
+        levels = levels(stroke$smoking_status)))
 
     predict(
       stroke_model,

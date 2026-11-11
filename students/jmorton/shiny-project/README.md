@@ -18,8 +18,17 @@ How do patient characteristics, such as gender, age, hypertension, heart disease
 2. Open `app.R` in Positron and click **Run App**.
 
 ## What the app does
-- **Inputs:** <each input, and why it fits this data>
-- **Outputs:** <each output, and why it fits this question>
+- **Inputs:** 
+- Gender: select a for gender.
+- Age: slider to select for age.
+- Hypertension: select for hypertension.
+- Heart Disease: select heart disease.
+- Average Glucose Level: enter a glucose level.
+- BMI: enter a body mass index.
+- Smoking Status: select a smoking category.
+
+- **Outputs:** 
+- Predicted Stroke Probability: Shows the estimated probability based on the patients information.
 
 ## One thing I learned
 <Something you discovered by using your own app.>
