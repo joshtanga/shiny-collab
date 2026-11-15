@@ -86,8 +86,13 @@ Open **Git Bash** (Start menu → `Git Bash`) and run these, using your own name
 git config --global user.name  "Your Name"
 git config --global user.email "you@example.com"
 git config --global init.defaultBranch main
-git config --global pull.rebase false
+git config --global pull.rebase true
+git config --global rebase.autoStash true
 ```
+
+The last two lines change what `git pull` does. Twenty of us push to the same `main` branch, so when you pull, someone has almost always pushed since your last pull. By default, git *merges* their commits with yours, which makes an extra "Merge branch 'main'…" commit and opens an editor (usually vim) to ask you for its message. With `pull.rebase true`, git instead sets your commits aside, downloads everyone else's, and replays yours on top: no merge commit, no editor, and a clean history. `rebase.autoStash true` lets `git pull` run even when you have unsaved, uncommitted changes.
+
+Already set up with `pull.rebase false`? Run the two lines above again; the new values replace the old.
 
 Check your settings:
 
@@ -291,7 +296,7 @@ git log --oneline --graph --all
 | command | what it does |
 |---|---|
 | `git status` | what's changed? what's staged? (**run this constantly**) |
-| `git pull` | download and merge everyone else's new commits |
+| `git pull` | download everyone else's new commits and put yours on top |
 | `git add <file>` | stage a file for the next commit |
 | `git commit -m "msg"` | save a snapshot of staged files, with a message |
 | `git push` | upload your commits to GitHub |
@@ -314,15 +319,21 @@ git push
 ```
 
 **An editor opens with a "Merge branch 'main'..." message after `git pull`**
-Git is asking you to confirm a merge commit message. Accept the default. In **vim** (what Git Bash uses by default), type `:wq` and press Enter. To avoid vim in future, set Positron/VS Code as git's editor: `git config --global core.editor "code --wait"`.
+Git is asking you to confirm a merge commit message. Nothing is wrong, and you don't need to change anything: accept the default. In **vim** (what Git Bash uses by default), type `:wq` and press Enter, then `git push`.
+
+This means `pull.rebase` isn't set to `true` on your computer. Run the two `git config` lines from step 0.3 and it will stop happening. (To trade vim for a friendlier editor, you can also run `git config --global core.editor "code --wait"`.)
+
+**Stuck in vim?** Press `Esc`, then type `:wq` and Enter to save and exit, or `:q!` and Enter to exit without saving.
 
 **`CONFLICT (content): Merge conflict in ...`**
 You edited a file someone else also edited. This shouldn't happen if you stay in your own folder. If it does:
 
 1. Open the file. Look for the `<<<<<<<`, `=======` and `>>>>>>>` markers.
 2. Keep the version you want and delete the markers.
-3. Run `git add <file>`, then `git commit`, then `git push`.
-4. If you're stuck, ask me before doing anything drastic.
+3. Run `git add <file>`, then `git rebase --continue`, then `git push`.
+   (If `git status` says you're in the middle of a *merge* rather than a *rebase*, use `git commit` instead of `git rebase --continue`.)
+4. To back out and get your files to how they were before the pull: `git rebase --abort`.
+5. If you're stuck, ask me before doing anything drastic.
 
 **`Permission denied` or `403` on push**
 Either you haven't accepted the collaborator invite (check your email or <https://github.com/notifications>), or you signed in to GitHub with the wrong account.
