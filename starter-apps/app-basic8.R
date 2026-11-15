@@ -1,6 +1,6 @@
 library(plotly)
 library(palmerpenguins)
-library(bslib)
+library(bslib) # for cards
 library(shiny)
 library(tidyverse)
 

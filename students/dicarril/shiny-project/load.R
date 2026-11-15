@@ -27,6 +27,7 @@ county_data <- read_csv("data/Poverty2023.csv",
   
   # Make sure every county FIPS code contains five characters
   mutate(
+    #str_pad() adds leading or trailing zeros
     fips = str_pad(
       fips,
       width = 5,

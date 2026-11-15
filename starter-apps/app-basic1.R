@@ -43,7 +43,7 @@ server <- function(input, output) {
     # plots the graph of y = x^2 and highlights the point (input$x, y)
     ggplot(df, aes(x = x_val, y = y_val)) +
       geom_line() +
-      geom_point(aes(x = input$x, y = y), size = 20)
+      geom_point(aes(x = input$x, y = y), size = 20, col='lightblue')
   })
 }
 
