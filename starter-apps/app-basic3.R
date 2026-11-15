@@ -1,7 +1,11 @@
-# level 3 complexity
-#
-# new additions:
-# we format latex in the title & table using withMathJax() and \\( ... \\) syntax
+# App:      Celia_app_5.R
+# Author:   Celia Wallace 
+# Started from: starter-apps/app-basic4.R
+#What I changed: 
+# - Changed slider minimum to -200. 
+# - Changed point size to 5. 
+# - Changed starting slider value to -200.
+# -
 
 library(shiny)
 library(tidyverse)
@@ -34,9 +38,9 @@ ui <- page_fluid(
       sliderInput(
         "x",
         "Current x-coordinate",
-        min = -100,
+        min = -200,
         max = 100,
-        value = 30
+        value = c(-200,50)
       )
     ),
     mainPanel(plotOutput("graph"), tableOutput("table"))
@@ -53,7 +57,7 @@ server <- function(input, output) {
 
     ggplot(df, aes(x = x_val, y = y_val)) +
       geom_line() +
-      geom_point(aes(x = input$x, y = y), size = 20) +
+      geom_point(aes(x = input$x, y = y), size = 10) +
       # adding a white point on top to make it more visible
       geom_point(aes(x = input$x, y = y), size = 10, color = "white")
   })
