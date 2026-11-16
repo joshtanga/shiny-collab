@@ -1,3 +1,12 @@
+# App:      cewallac_app5.R
+# Author:   Celia Wallace 
+# Started from: starter-apps/app-basic4.R
+#What I changed: 
+# - Changed selected gender to male from female. 
+# - Changed 
+# -Changed 
+# -Changed 
+
 library(plotly)
 library(palmerpenguins)
 library(shiny)
@@ -21,7 +30,7 @@ ui <- page_fluid(
       selectInput("sex",
                   "Choose sex",
                   choices = c("male","female"),
-                  selected = "female")
+                  selected = "male")
     ),
     
     # Show a plot of the generated distribution
