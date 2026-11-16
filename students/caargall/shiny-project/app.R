@@ -154,14 +154,7 @@ server <- function(input, output) {
       )
   })
 
-  # current() returns the selected country, or worldwide if none is selected
-  #gets the meteorites that match input selected
-  #worldTotal gets assigned the number of all meteorites
-  #if no country is selected, sets countryName to "Worldwide" to display
-  #if a country is selected, filter so that only meteorites belonging to the country selected are used
-  #if there are no values for the selected country it stays as worldwide
-  #Then get the country and store it in countryName to display
-  #Find the largest meteorite in selected, and get data that is to be displayed
+  #use to get country selected and get variables displayed in outputs, if no country selected displays worldwide
   current <- reactive({
   cur <- meteorFilter() |>
     st_drop_geometry()
