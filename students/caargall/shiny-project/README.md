@@ -1,4 +1,4 @@
-# app.R
+# Observed Meteorites
 
 **Author:** Carson Argall
 
