@@ -1,7 +1,7 @@
 activity,percent
-sleep,
-class,
-studying,
-work,
-screens,
-other,
+sleep, 20
+class, 15
+studying, 15
+work, 20
+screens, 20
+other, 10
