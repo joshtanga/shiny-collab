@@ -12,12 +12,12 @@ Want to look at some of the worst cars from the past decade that have the most c
 
 ## How to run it
 
-1.   install.packages(c("shiny", "bslib", "jsonlite", "tidyverse"))
+1.  install.packages(c("shiny", "bslib", "jsonlite", "tidyverse"))
 2.  Run app.R
 
 ## What the app does
 
--  This app gives you a random car (year, model) among the top100 most complained about and gives you the data on the specific components that are the most complained. You can filter the top components of the specific vehicle that are most complained and/or you can filter by manufacturer to get a result from. These actions allow you to better understand what seem to be the most consistent problems with each vehicle.
+- This app gives you a random car (year, model) among the top100 most complained about and gives you the data on the specific components that are the most complained. You can filter the top components of the specific vehicle that are most complained and/or you can filter by manufacturer to get a result from. These actions allow you to better understand what seem to be the most consistent problems with each vehicle.
 
 ## One thing I learned
 
